@@ -8,16 +8,21 @@
     - [] pop
     - [] remove
     - [] insert
+    - [] test
 
 # Artur
-- [] DoubleLinkedList (circular)
-    - [] create
-    - [] destroy
-    - [] insert\_behind
-    - [] insert\_front
-    - [] remove
-    - [] join
+- [x] Point
+    - [x] test
+- [-] DoubleLinkedList (circular)
+    - [x] create
+    - [x] destroy
+    - [x] insert\_behind
+    - [x] insert\_front
+    - [x] remove
+    - [x] join
+    - [-] test
 - [] merge\_sort (DynamicArray)
+    - [] test
 
 # Together
 - [] create\_hull
