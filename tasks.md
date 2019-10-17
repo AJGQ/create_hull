@@ -13,14 +13,14 @@
 # Artur
 - [x] Point
     - [x] test
-- [-] DoubleLinkedList (circular)
+- [x] DoubleLinkedList (circular)
     - [x] create
     - [x] destroy
     - [x] insert\_behind
     - [x] insert\_front
     - [x] remove
     - [x] join
-    - [-] test
+    - [x] test
 - [] merge\_sort (DynamicArray)
     - [] test
 

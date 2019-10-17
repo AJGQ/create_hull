@@ -1,18 +1,16 @@
 #include "doube_linked_list.h"
 #include <stdlib.h>
 
-int dll_create(DoubleLinkedList* ret, 
-        Point* p,
-        DoubleLinkedList* prev,
-        DoubleLinkedList* next){
-    ret = (DoubleLinkedList*) malloc(sizeof(DoubleLinkedList));
-    if(!ret){
+int dll_create(DoubleLinkedList** ret, Point* p){
+    *ret = (DoubleLinkedList*) malloc(sizeof(DoubleLinkedList));
+    if(!*ret){
         return 1;
     }
+    DoubleLinkedList* aux = *ret;
     
-    ret->p = p;
-    ret->prev = prev;
-    ret->next = next;
+    aux->p = p;
+    aux->prev = aux;
+    aux->next = aux;
     return 0;
 }
 
@@ -33,9 +31,13 @@ void dll_destroy(DoubleLinkedList* dll){
 
 void dll_insert_behind(DoubleLinkedList* dll, Point* p){
     DoubleLinkedList* node;
-    dll_create(node, p, dll->prev, dll);
+    DoubleLinkedList* prev = dll->prev;
+
+    dll_create(&node, p);
     dll->prev->next = node;
     dll->prev = node;
+    node->next = dll;
+    node->prev = prev;
 }
 
 void dll_insert_front(DoubleLinkedList* dll, Point* p){
@@ -95,6 +97,7 @@ void dll_join(DoubleLinkedList* dll0,
 
         dll_destroy(to_free1);
     }
+
     // connect the ends
     dll0->prev = dll1;
     dll1->next = dll0;

@@ -9,10 +9,8 @@ typedef struct sDoubleLinkedList {
     struct sDoubleLinkedList* next;
 } DoubleLinkedList;
 
-int dll_create(DoubleLinkedList* ret, 
-        Point* p,
-        DoubleLinkedList* prev,
-        DoubleLinkedList* next);
+int dll_create(DoubleLinkedList** ret, 
+        Point* p);
 
 void dll_destroy(DoubleLinkedList* dll);
 

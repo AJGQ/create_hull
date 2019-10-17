@@ -1,0 +1,36 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	Development	//
+DIM	lib/point/point.h	4;"	d
+DOUBLE_LINKED_LIST	lib/double_linked_list/doube_linked_list.h	2;"	d
+DoubleLinkedList	lib/double_linked_list/doube_linked_list.h	/^} DoubleLinkedList;$/;"	t	typeref:struct:sDoubleLinkedList
+POINT	lib/point/point.h	2;"	d
+Point	lib/point/point.h	/^typedef int Point[DIM];$/;"	t
+X	lib/point/point.h	5;"	d
+Y	lib/point/point.h	6;"	d
+dll_create	lib/double_linked_list/doube_linked_list.c	/^int dll_create(DoubleLinkedList* ret, $/;"	f
+dll_destroy	lib/double_linked_list/doube_linked_list.c	/^void dll_destroy(DoubleLinkedList* dll){$/;"	f
+dll_insert_behind	lib/double_linked_list/doube_linked_list.c	/^void dll_insert_behind(DoubleLinkedList* dll, Point* p){$/;"	f
+dll_insert_front	lib/double_linked_list/doube_linked_list.c	/^void dll_insert_front(DoubleLinkedList* dll, Point* p){$/;"	f
+dll_join	lib/double_linked_list/doube_linked_list.c	/^void dll_join(DoubleLinkedList* dll0,$/;"	f
+dll_remove	lib/double_linked_list/doube_linked_list.c	/^void dll_remove(DoubleLinkedList* dll){$/;"	f
+main	lib/double_linked_list/test_doube_linked_list.c	/^int main(){$/;"	f
+main	lib/point/test_point.c	/^int main(){$/;"	f
+next	lib/double_linked_list/doube_linked_list.h	/^    struct sDoubleLinkedList* next;$/;"	m	struct:sDoubleLinkedList	typeref:struct:sDoubleLinkedList::sDoubleLinkedList
+p	lib/double_linked_list/doube_linked_list.h	/^    Point* p;$/;"	m	struct:sDoubleLinkedList
+point_O	lib/point/point.h	/^static Point point_O = {0, 0};$/;"	v
+point_create	lib/point/point.c	/^void point_create(Point* ret, int x, int y){$/;"	f
+point_difference	lib/point/point.c	/^void point_difference(Point* ret, Point p0, Point p1){$/;"	f
+point_distance	lib/point/point.c	/^float point_distance(Point p0, Point p1){$/;"	f
+point_divide	lib/point/point.c	/^void point_divide(Point* ret, int s, Point p){$/;"	f
+point_dot_product	lib/point/point.c	/^float point_dot_product(Point p0, Point p1){$/;"	f
+point_magnitude	lib/point/point.c	/^float point_magnitude(Point p){$/;"	f
+point_multiply	lib/point/point.c	/^void point_multiply(Point* ret, int s, Point p){$/;"	f
+point_sum	lib/point/point.c	/^void point_sum(Point* ret, Point p0, Point p1){$/;"	f
+prev	lib/double_linked_list/doube_linked_list.h	/^    struct sDoubleLinkedList* prev;$/;"	m	struct:sDoubleLinkedList	typeref:struct:sDoubleLinkedList::sDoubleLinkedList
+print_dll	lib/double_linked_list/test_doube_linked_list.c	/^void print_dll(DoubleLinkedList* dll){$/;"	f
+print_point	lib/point/test_point.c	/^void print_point(Point p){$/;"	f
+sDoubleLinkedList	lib/double_linked_list/doube_linked_list.h	/^typedef struct sDoubleLinkedList {$/;"	s
