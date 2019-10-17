@@ -11,7 +11,7 @@ POINT	lib/point/point.h	2;"	d
 Point	lib/point/point.h	/^typedef int Point[DIM];$/;"	t
 X	lib/point/point.h	5;"	d
 Y	lib/point/point.h	6;"	d
-dll_create	lib/double_linked_list/doube_linked_list.c	/^int dll_create(DoubleLinkedList* ret, $/;"	f
+dll_create	lib/double_linked_list/doube_linked_list.c	/^int dll_create(DoubleLinkedList** ret, Point* p){$/;"	f
 dll_destroy	lib/double_linked_list/doube_linked_list.c	/^void dll_destroy(DoubleLinkedList* dll){$/;"	f
 dll_insert_behind	lib/double_linked_list/doube_linked_list.c	/^void dll_insert_behind(DoubleLinkedList* dll, Point* p){$/;"	f
 dll_insert_front	lib/double_linked_list/doube_linked_list.c	/^void dll_insert_front(DoubleLinkedList* dll, Point* p){$/;"	f
