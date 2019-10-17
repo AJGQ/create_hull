@@ -3,6 +3,7 @@
     - [] create
     - [] destroy
     - [] update\_size
+    - [] size
     - [] push
     - [] pop
     - [] remove
@@ -15,6 +16,7 @@
     - [] insert\_behind
     - [] insert\_front
     - [] remove
+    - [] join
 - [] merge\_sort (DynamicArray)
 
 # Together
