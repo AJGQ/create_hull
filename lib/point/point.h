@@ -1,5 +1,5 @@
-#ifndef POINT
-#define POINT
+#ifndef POINT_H
+#define POINT_H
 
 #define DIM 2
 #define X 0

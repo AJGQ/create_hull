@@ -21,8 +21,8 @@
     - [x] remove
     - [x] join
     - [x] test
-- [] merge\_sort (DynamicArray)
-    - [] test
+- [x] merge\_sort (DynamicArray)
+    - [x] test
 
 # Together
 - [] create\_hull
