@@ -47,28 +47,4 @@ int main(void)
     dynamic_array_print(&v1);
     printf("Capacity(v1) : %d\n", dynamic_array_size(&v1));
 
-    //DynamicArray v;
-    //dynamic_array_create(&v);
-
-    //dynamic_array_push(&v, "Bonjour");
-    //dynamic_array_push(&v, "tout");
-    //dynamic_array_push(&v, "le");
-    //dynamic_array_push(&v, "monde");
-
-    //for (i = 0; i < dynamic_array_size(&v); i++)
-    //    printf("%s ", (char *) dynamic_array_get(&v, i));
-    //printf("\n");
-
-    //dynamic_array_delete(&v, 3);
-    //dynamic_array_delete(&v, 2);
-    //dynamic_array_delete(&v, 1);
-
-    //dynamic_array_insert(&v, 0, "Hello");
-    //dynamic_array_push(&v, "World");
-
-    //for (i = 0; i < dynamic_array_size(&v); i++)
-    //    printf("%s ", (char *) dynamic_array_get(&v, i));
-    //printf("\n");
-
-    //dynamic_array_destroy(&v);
 }
