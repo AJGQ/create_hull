@@ -1,5 +1,5 @@
-#ifndef POLYGON
-#define POLYGON
+#ifndef POLYGON_H
+#define POLYGON_H
 
 #include "../point/point.h"
 
