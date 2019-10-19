@@ -31,4 +31,6 @@ void merge_sort(TYPE* array, size_t size,
     
     while(j < size)
         array[t++] = aux[j++];
+
+    free(aux);
 }
