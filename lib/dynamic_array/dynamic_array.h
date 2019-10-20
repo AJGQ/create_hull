@@ -19,15 +19,19 @@ typedef struct DynamicArray {
     int total;
 } DynamicArray;
 
-void dynamic_array_create(DynamicArray *);
+int dynamic_array_create(DynamicArray *);
 int dynamic_array_size(DynamicArray *);
-static void dynamic_array_resize(DynamicArray *, int);
-void dynamic_array_push(DynamicArray *, void *);
-void dynamic_array_insert(DynamicArray *, int, void *);
+int dynamic_array_capacity(DynamicArray *);
+static int dynamic_array_resize(DynamicArray *, int);
+int dynamic_array_push(DynamicArray *, void *);
+int dynamic_array_insert(DynamicArray *, int, void *);
 void *dynamic_array_get(DynamicArray *, int);
-void dynamic_array_delete(DynamicArray *, int);
-void dynamic_array_pop(DynamicArray *);
-void dynamic_array_destroy(DynamicArray *);
+int dynamic_array_delete(DynamicArray *, int);
+int dynamic_array_pop(DynamicArray *);
+int dynamic_array_destroy(DynamicArray *);
 //void dynamic_array_print(DynamicArray *);
+
+void print_point(Point);
+void dynamic_array_print(DynamicArray* );
 
 #endif
