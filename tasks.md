@@ -1,14 +1,14 @@
 # Luis
-- [] DynamicArray
-    - [] create
-    - [] destroy
-    - [] update\_size
-    - [] size
-    - [] push
-    - [] pop
+- [x] DynamicArray
+    - [x] create
+    - [x] destroy
+    - [x] update\_size
+    - [x] size
+    - [x] push
+    - [x] pop
     - [] remove
-    - [] insert
-    - [] test
+    - [x] insert
+    - [x] test
 
 # Artur
 - [x] Point

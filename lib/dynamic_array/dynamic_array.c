@@ -95,7 +95,10 @@ int dynamic_array_push(DynamicArray *v, void *item) {
     #endif
 
     if (v->capacity == v->total)
-        dynamic_array_resize(v, v->capacity * 2);
+        if(v->capacity != 0)
+            dynamic_array_resize(v, v->capacity * 2);
+        else
+            dynamic_array_resize(v, DYNAMIC_ARRAY_INIT_CAPACITY);
     v->items[v->total++] = item;
 
     #ifdef DEBUG_ON
@@ -135,7 +138,13 @@ int dynamic_array_insert(DynamicArray *v, int index, void *item) {
         if(index > v->capacity){
             dynamic_array_resize(v, index * 2);
         }
-
+        Point aux = {-1,-1};
+        for (size_t i = v->total; i < index; i++)
+        {
+            dynamic_array_push(v,aux);
+            //v->items[i] = aux;
+        }
+        
         v->items[index] = item;
         v->total++;
     }
@@ -225,6 +234,8 @@ int dynamic_array_destroy(DynamicArray *v) {
     #endif
 
     free(v->items);
+    v->total=0;
+    v->capacity=0;
 
     #ifdef DEBUG_ON
         printf("----- print array------\n");

@@ -74,4 +74,46 @@ int main(void)
     printf("Capacity(v1) : %d\n", dynamic_array_capacity(&v1));
     printf("\n");
 
+    printf("----insert----\n");
+    Point p_3 = {33, 77};
+    dynamic_array_insert(&v1,17,&p_3);
+
+    dynamic_array_print(&v1);
+    printf("nº elements(v1) : %d\n", dynamic_array_size(&v1));
+    printf("Capacity(v1) : %d\n", dynamic_array_capacity(&v1));
+    printf("\n\n");
+
+    printf("----insert/update----\n");
+    dynamic_array_insert(&v1,10,&p_3);
+
+    dynamic_array_print(&v1);
+    printf("nº elements(v1) : %d\n", dynamic_array_size(&v1));
+    printf("Capacity(v1) : %d\n", dynamic_array_capacity(&v1));
+    printf("\n\n");
+
+    printf("-----destroy---\n");
+    dynamic_array_destroy(&v1);
+    dynamic_array_print(&v1);
+    printf("nº elements(v1) : %d\n", dynamic_array_size(&v1));
+    printf("Capacity(v1) : %d\n\n", dynamic_array_capacity(&v1));
+
+    printf("push ");
+    print_point(p1);
+    dynamic_array_push(&v1, &p1);
+    printf("nº elements(v1) : %d\n", dynamic_array_size(&v1));
+    printf("Capacity(v1) : %d\n", dynamic_array_capacity(&v1));
+    printf("\n");
+
+    printf("push ");
+    print_point(p2);
+    dynamic_array_push(&v1, &p2);
+    printf("nº elements(v1) : %d\n", dynamic_array_size(&v1));
+    printf("Capacity(v1) : %d\n", dynamic_array_capacity(&v1));
+    printf("\n");
+
+    printf("----- print array ----\n");
+    dynamic_array_print(&v1);
+    printf("nº elements(v1) : %d\n", dynamic_array_size(&v1));
+    printf("Capacity(v1) : %d\n", dynamic_array_capacity(&v1));
+    printf("\n\n");
 }
