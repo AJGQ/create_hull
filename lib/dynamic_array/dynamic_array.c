@@ -94,11 +94,12 @@ int dynamic_array_push(DynamicArray *v, void *item) {
         printf("\n\n");
     #endif
 
-    if (v->capacity == v->total)
+    if (v->capacity == v->total){
         if(v->capacity != 0)
             dynamic_array_resize(v, v->capacity * 2);
         else
             dynamic_array_resize(v, DYNAMIC_ARRAY_INIT_CAPACITY);
+    }
     v->items[v->total++] = item;
 
     #ifdef DEBUG_ON

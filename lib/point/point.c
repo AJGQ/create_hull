@@ -6,6 +6,10 @@ void point_create(Point* ret, int x, int y){
     (*ret)[Y] = y;
 }
 
+void point_copy(Point* ret, Point p){
+    point_create(ret, p[X], p[Y]);
+}
+
 void point_sum(Point* ret, Point p0, Point p1){
     point_create(ret, 
             p0[X] + p1[X],
@@ -41,5 +45,14 @@ float point_distance(Point p0, Point p1){
     Point aux;
     point_difference(&aux, p1, p0);
     return point_magnitude(aux);
+}
+
+int point_area_sign( Point a, Point b, Point c ){
+    int area = ( b[0] - a[0] ) * ( c[1] - a[1] ) -
+        ( c[0] - a[0] ) * ( b[1] - a[1] );
+
+    if      ( area >  0.5 ) return  1;
+    else if ( area < -0.5 ) return -1;
+    else                    return  0;
 }
 
