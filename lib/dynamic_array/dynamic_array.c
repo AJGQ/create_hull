@@ -42,6 +42,18 @@ int dynamic_array_create(DynamicArray *v) {
     return 0;
 }
 
+DynamicArray dynamic_array_slice(DynamicArray *v , int index ){
+    DynamicArray ret;
+    dynamic_array_create(&ret);
+
+    for (size_t i = index; i < v->total; i++)
+    {
+        dynamic_array_push(&ret,v->items[i]);
+    }
+
+    return ret;
+}
+
 int dynamic_array_size(DynamicArray *v) {
 
     return v->total;

@@ -20,6 +20,7 @@ typedef struct DynamicArray {
 } DynamicArray;
 
 int dynamic_array_create(DynamicArray *);
+DynamicArray dynamic_array_slice(DynamicArray * , int );
 int dynamic_array_size(DynamicArray *);
 int dynamic_array_capacity(DynamicArray *);
 static int dynamic_array_resize(DynamicArray *, int);
