@@ -12,6 +12,8 @@ typedef struct sPolygon{
 int polygon_create(Polygon** ret, 
         Point* p);
 
+void polygon_copy(Polygon* ret, Polygon pol);
+
 void polygon_destroy(Polygon* pol);
 
 void polygon_insert_behind(Polygon* pol, Point* p);

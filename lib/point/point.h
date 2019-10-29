@@ -6,7 +6,6 @@
 #define Y 1
 
 typedef int Point[DIM];
-static Point point_O = {0, 0};
 
 void point_create(Point* ret, int x, int y);
 void point_copy(Point* ret, Point p);

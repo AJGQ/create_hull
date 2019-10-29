@@ -49,6 +49,13 @@ int main(){
     print_pol(pol);
 
     polygon_destroy(pol);
+    
+    /*----------------------------*/
+
+    printf("\n------------------------\n");
+
+
+
 
     return 0;
 }

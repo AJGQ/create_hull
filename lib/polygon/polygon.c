@@ -14,6 +14,12 @@ int polygon_create(Polygon** ret, Point* p){
     return 0;
 }
 
+void polygon_copy(Polygon* ret, Polygon pol){
+    ret->p = pol.p;
+    ret->prev = pol.prev;
+    ret->next = pol.next;
+}
+
 void polygon_destroy(Polygon* pol){
     Polygon* aux, * aux_next;
     if(!pol) return;

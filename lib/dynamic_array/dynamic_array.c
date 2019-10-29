@@ -1,17 +1,16 @@
 #include "dynamic_array.h"
 
 #include <stdio.h>
-#include <stdlib.h>
 
 void print_point(Point p){
     printf("(%d,%d)\n",p[X],p[Y]);
 }
 
 void dynamic_array_print(DynamicArray*  v){
-    for (int i = 0; i < dynamic_array_size(v); i++)
+    for (size_t i = 0; i < dynamic_array_size(v); i++)
     {
         Point* Pi = (Point *)v->items[i];
-        printf("Array[%d] = ",i);
+        printf("Array[%ld] = ",i);
         print_point(*Pi);
     }
     
@@ -29,8 +28,8 @@ int dynamic_array_create(DynamicArray *v) {
         printf("---- dynamic_array_create ----\n")
         printf("------------------------------\n");
         dynamic_array_print(&v);
-        printf("nº elements(v) : %d\n", dynamic_array_size(v));
-        printf("Capacity(v) : %d\n", dynamic_array_capacity(v));
+        printf("nº elements(v) : %ld\n", dynamic_array_size(v));
+        printf("Capacity(v) : %ld\n", dynamic_array_capacity(v));
         printf("______________________________\n");
         printf("\n");
     #endif
@@ -42,7 +41,7 @@ int dynamic_array_create(DynamicArray *v) {
     return 0;
 }
 
-DynamicArray dynamic_array_slice(DynamicArray *v , int index ){
+DynamicArray dynamic_array_slice(DynamicArray *v , size_t index ){
     DynamicArray ret;
     dynamic_array_create(&ret);
 
@@ -54,28 +53,28 @@ DynamicArray dynamic_array_slice(DynamicArray *v , int index ){
     return ret;
 }
 
-int dynamic_array_size(DynamicArray *v) {
+size_t dynamic_array_size(DynamicArray *v) {
 
     return v->total;
 }
 
-int dynamic_array_capacity(DynamicArray *v) {
+size_t dynamic_array_capacity(DynamicArray *v) {
 
     return v->capacity;
 }
 
-static int dynamic_array_resize(DynamicArray *v, int capacity) {
+static int dynamic_array_resize(DynamicArray *v, size_t capacity) {
 
     #ifdef DEBUG_ON
         printf("------------------------------\n");
         printf("---- dynamic_array_resize ----\n")
         printf("------------------------------\n");
-        printf("DynamicArray_resize: %d to %d\n\n", v->capacity, capacity);
+        printf("DynamicArray_resize: %ld to %ld\n\n", v->capacity, capacity);
 
         printf("----- print array------\n");
         dynamic_array_print(&v);
-        printf("nº elements(v) : %d\n", dynamic_array_size(v));
-        printf("Capacity(v) : %d\n", dynamic_array_capacity(v));
+        printf("nº elements(v) : %ld\n", dynamic_array_size(v));
+        printf("Capacity(v) : %ld\n", dynamic_array_capacity(v));
         printf("______________________________\n");
         printf("\n");
     #endif
@@ -101,8 +100,8 @@ int dynamic_array_push(DynamicArray *v, void *item) {
         printf("push");
         print_point(item);
         dynamic_array_print(&v);
-        printf("nº elements(v) : %d\n", dynamic_array_size(v));
-        printf("Capacity(v) : %d\n", dynamic_array_capacity(v));
+        printf("nº elements(v) : %ld\n", dynamic_array_size(v));
+        printf("Capacity(v) : %ld\n", dynamic_array_capacity(v));
         printf("\n\n");
     #endif
 
@@ -117,8 +116,8 @@ int dynamic_array_push(DynamicArray *v, void *item) {
     #ifdef DEBUG_ON
         printf("----- print array------\n");
         dynamic_array_print(&v);
-        printf("nº elements(v) : %d\n", dynamic_array_size(v));
-        printf("Capacity(v) : %d\n", dynamic_array_capacity(v));
+        printf("nº elements(v) : %ld\n", dynamic_array_size(v));
+        printf("Capacity(v) : %ld\n", dynamic_array_capacity(v));
         printf("______________________________\n");
         printf("\n");
     #endif
@@ -130,21 +129,21 @@ int dynamic_array_push(DynamicArray *v, void *item) {
     return 1;
 }
 
-int dynamic_array_insert(DynamicArray *v, int index, void *item) {
+int dynamic_array_insert(DynamicArray *v, size_t index, void *item) {
 
     #ifdef DEBUG_ON
         printf("------------------------------\n");
         printf("---- dynamic_array_insert-----\n")
         printf("------------------------------\n\n");
-        printf("in Array[%d] insert ",index);
+        printf("in Array[%ld] insert ",index);
         print_point(item);
         dynamic_array_print(&v);
-        printf("nº elements(v) : %d\n", dynamic_array_size(v));
-        printf("Capacity(v) : %d\n", dynamic_array_capacity(v));
+        printf("nº elements(v) : %ld\n", dynamic_array_size(v));
+        printf("Capacity(v) : %ld\n", dynamic_array_capacity(v));
         printf("\n\n");
     #endif
     /* update */
-    if (index >= 0 && index < v->total)
+    if (index < v->total)
         v->items[index] = item;
     else{
         /* expand */
@@ -165,8 +164,8 @@ int dynamic_array_insert(DynamicArray *v, int index, void *item) {
     #ifdef DEBUG_ON
         printf("----- print array------\n");
         dynamic_array_print(&v);
-        printf("nº elements(v) : %d\n", dynamic_array_size(v));
-        printf("Capacity(v) : %d\n", dynamic_array_capacity(v));
+        printf("nº elements(v) : %ld\n", dynamic_array_size(v));
+        printf("Capacity(v) : %ld\n", dynamic_array_capacity(v));
         printf("______________________________\n");
         printf("\n");
     #endif
@@ -177,34 +176,34 @@ int dynamic_array_insert(DynamicArray *v, int index, void *item) {
     return 1;
 }
 
-void *dynamic_array_get(DynamicArray *v, int index) {
+void *dynamic_array_get(DynamicArray *v, size_t index) {
 
-    if (index >= 0 && index < v->total)
+    if (index < v->total)
         return v->items[index];
     return NULL;
 }
 
-int dynamic_array_delete(DynamicArray *v, int index) {
+int dynamic_array_delete(DynamicArray *v, size_t index) {
 
     #ifdef DEBUG_ON
         printf("------------------------------\n");
         printf("---- dynamic_array_insert-----\n")
         printf("------------------------------\n\n");
-        printf("delete Array[%d]",index);
+        printf("delete Array[%ld]",index);
         dynamic_array_print(&v);
-        printf("nº elements(v) : %d\n", dynamic_array_size(v));
-        printf("Capacity(v) : %d\n", dynamic_array_capacity(v));
+        printf("nº elements(v) : %ld\n", dynamic_array_size(v));
+        printf("Capacity(v) : %ld\n", dynamic_array_capacity(v));
         printf("\n\n");
     #endif
 
-    int p_total = v->total;
+    size_t p_total = v->total;
 
-    if (index < 0 || index >= v->total)
+    if (index >= v->total)
         return 1;
 
     v->items[index] = NULL;
 
-    for (int i = index; i < v->total - 1; i++) {
+    for (size_t i = index; i < v->total - 1; i++) {
         v->items[i] = v->items[i + 1];
         v->items[i + 1] = NULL;
     }
@@ -218,8 +217,8 @@ int dynamic_array_delete(DynamicArray *v, int index) {
     #ifdef DEBUG_ON
         printf("----- print array------\n");
         dynamic_array_print(&v);
-        printf("nº elements(v) : %d\n", dynamic_array_size(v));
-        printf("Capacity(v) : %d\n", dynamic_array_capacity(v));
+        printf("nº elements(v) : %ld\n", dynamic_array_size(v));
+        printf("Capacity(v) : %ld\n", dynamic_array_capacity(v));
         printf("______________________________\n");
         printf("\n");
     #endif
@@ -241,8 +240,8 @@ int dynamic_array_destroy(DynamicArray *v) {
         printf("---- dynamic_array_destroy-----\n")
         printf("------------------------------\n\n");
         dynamic_array_print(&v);
-        printf("nº elements(v) : %d\n", dynamic_array_size(v));
-        printf("Capacity(v) : %d\n", dynamic_array_capacity(v));
+        printf("nº elements(v) : %ld\n", dynamic_array_size(v));
+        printf("Capacity(v) : %ld\n", dynamic_array_capacity(v));
         printf("\n\n");
     #endif
 
@@ -253,8 +252,8 @@ int dynamic_array_destroy(DynamicArray *v) {
     #ifdef DEBUG_ON
         printf("----- print array------\n");
         dynamic_array_print(&v);
-        printf("nº elements(v) : %d\n", dynamic_array_size(v));
-        printf("Capacity(v) : %d\n", dynamic_array_capacity(v));
+        printf("nº elements(v) : %ld\n", dynamic_array_size(v));
+        printf("Capacity(v) : %ld\n", dynamic_array_capacity(v));
         printf("______________________________\n");
         printf("\n");
     #endif
