@@ -14,7 +14,8 @@ scrHeight = 600
 fps :: Num a => a
 fps = 30
 
-data Viz = Viz [Point]
+type Action = [(Point, Point)]
+data Viz = Viz [Point] Action Action [Action]
 
-vizInit :: [Point] -> Viz
-vizInit ps = Viz ps
+vizInit :: [Point] -> [Action] -> Viz
+vizInit ps as = Viz ps [] [] as

@@ -7,7 +7,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-void print_pol(Polygon* pol){
+void pprint_pol(Polygon* pol){
     if(!pol) return;
 
     printf("(%d, %d)", (*pol->p)[X], (*pol->p)[Y]);
@@ -16,6 +16,17 @@ void print_pol(Polygon* pol){
     }
     printf("\n");
 }
+
+void print_pol(Polygon* pol){
+    if(!pol) return;
+
+    printf("%d %d,%d %d", (*pol->p)[X], (*pol->p)[Y], (*pol->next->p)[X], (*pol->next->p)[Y]);
+    for(Polygon* aux = pol->next; aux->p!=pol->p; aux = aux->next){
+        printf(";%d %d,%d %d", (*aux->p)[X], (*aux->p)[Y], (*aux->next->p)[X], (*aux->next->p)[Y]);
+    }
+    printf("\n");
+}
+
 
 int cmp_x(const Point* a, const Point* b){
     return ((*a)[X] < (*b)[X])? -1: ((*a)[X] > (*b)[X])? 1 : 
@@ -116,9 +127,10 @@ int main(){
         Point* p_;
         p_ = (Point*)malloc(sizeof(Point));
         point_copy(p_, p);
+        printf("%d %d\n", (*p_)[X], (*p_)[Y]);
         dynamic_array_push(&d, (void*)p_);
     }
-
+    printf("$\n");
     Polygon* pol;
     create_hull(&pol, &d);
 
