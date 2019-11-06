@@ -61,14 +61,20 @@ void find_higher_lim(Polygon** pol0, Polygon** pol1,
 
     Line l;
     line_create(&l, *(*xl)->p, *(*xr)->p);
+    //printf("\tleft to join: ");
+    //print_point(*(*xl)->p);
+    //printf("\tright to join: ");
+    //print_point(*(*xr)->p);
     
     while((line_left_on(l, *(*xl)->next->p) && (*xl) != (*xl)->next ) || 
             (line_left_on(l, *(*xr)->prev->p) && (*xr) != (*xr)->prev )){
         while(line_left_on(l, *(*xl)->next->p) && (*xl) != (*xl)->next ){
+            //printf("\tadvance in left\n");
             (*xl) = (*xl)->next;
             point_copy(l, *(*xl)->p);
         }
         while(line_left_on(l, *(*xr)->prev->p) && (*xr) != (*xr)->prev ){
+            //printf("\tadvance in right\n");
             (*xr) = (*xr)->prev;
             point_copy(l+1, *(*xr)->p);
         }
@@ -93,22 +99,39 @@ void create_hull_aux(Polygon** ret,
     size_t m = size/2 + size%2;
 
     Polygon* poll,* polr;
-    Polygon* xll,* xlr,* xrl,* xrr;
+    Polygon* xll,* xlr,* xrl,* xrr,* xrl_,* xlr_;
 
     create_hull_aux(&poll, &xll, &xlr, arr, m);
     create_hull_aux(&polr, &xrl, &xrr, arr + m, size - m);
 
+    xlr_ = xlr;
+    xrl_ = xrl;
     *xl = xll;
     *xr = xrr;
 
     Polygon* pol0,* pol0_,* pol1,* pol1_;
 
-    find_lower_lim(&pol0_, &pol1_, &xlr, &xrl);
+    //printf("xlr: ");
+    //print_point(*xlr->p);
+    //printf("xrl: ");
+    //print_point(*xrl->p);
+    find_lower_lim(&pol0_, &pol1_, &xlr_, &xrl_);
     find_higher_lim(&pol0, &pol1, &xlr, &xrl);
+    //printf("lower_lim: (%d, %d) (%d, %d)\n", (*pol0_->p)[X], (*pol0_->p)[Y],
+    //                                         (*pol1_->p)[X], (*pol1_->p)[Y]
+    //);
+    //printf("higherlim: (%d, %d) (%d, %d)\n", (*pol0->p)[X], (*pol0->p)[Y],
+    //                                         (*pol1->p)[X], (*pol1->p)[Y]
+    //);
 
     polygon_join(pol0, pol0_, pol1, pol1_);
 
     *ret = *xl;
+    //printf("--left most: ");
+    //print_point(*(*xl)->p);
+    //printf("--right most: ");
+    //print_point(*(*xr)->p);
+
     print_pol(*ret);    
 }
 
