@@ -1,9 +1,13 @@
 #include "point.h"
-#include <math.h>
+//#include <math.h>
 
 void point_create(Point* ret, int x, int y){
     (*ret)[X] = x;
     (*ret)[Y] = y;
+}
+
+bool point_is_equal(Point p0, Point p1){
+    return p0[X] == p1[X] && p0[Y] == p1[Y];
 }
 
 void point_copy(Point* ret, Point p){
@@ -37,15 +41,15 @@ float point_dot_product(Point p0, Point p1){
     return (float)(p0[X] * p1[X] + p0[Y] * p1[Y]);
 }
 
-float point_magnitude(Point p){
-    return (float)sqrt((double)( p[X]*p[X] + p[Y]*p[Y] ));
-}
+//float point_magnitude(Point p){
+//    return (float)sqrt((double)( p[X]*p[X] + p[Y]*p[Y] ));
+//}
 
-float point_distance(Point p0, Point p1){
-    Point aux;
-    point_difference(&aux, p1, p0);
-    return point_magnitude(aux);
-}
+//float point_distance(Point p0, Point p1){
+//    Point aux;
+//    point_difference(&aux, p1, p0);
+//    return point_magnitude(aux);
+//}
 
 int point_area_sign( Point a, Point b, Point c ){
     int area = ( b[0] - a[0] ) * ( c[1] - a[1] ) -
