@@ -1,0 +1,6 @@
+*.hi
+*.o
+src/hull
+animate/animate
+visualize/visualize
+a.out

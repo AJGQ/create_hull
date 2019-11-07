@@ -1,7 +1,7 @@
 #include "../lib/polygon/polygon.h"
 #include "../lib/polygon/polygon.h"
 #include "../lib/dynamic_array/dynamic_array.h"
-#include "../lib/dynamic_array/merge_sort.h"
+#include "../lib/dynamic_array/merge_sort_diff.h"
 #include "../lib/point/point.h"
 #include "../lib/line/line.h"
 #include <stdlib.h>
@@ -40,13 +40,13 @@ void find_lower_lim(Polygon** pol0_, Polygon** pol1_,
     Line l;
     line_create(&l, *(*xl)->p, *(*xr)->p);
     
-    while((line_right_on(l, *(*xl)->prev->p) && (*xl) != (*xl)->prev && !point_is_equal(*(*xl)->p,*(*xl)->prev->p)) || 
-            (line_right_on(l, *(*xr)->next->p) && (*xr) != (*xr)->next && !point_is_equal(*(*xr)->p,*(*xr)->next->p))){
-        while(line_right_on(l, *(*xl)->prev->p) && (*xl) != (*xl)->prev && !point_is_equal(*(*xl)->p,*(*xl)->prev->p) ){
+    while((line_right_on(l, *(*xl)->prev->p) && (*xl) != (*xl)->prev) || 
+            (line_right_on(l, *(*xr)->next->p) && (*xr) != (*xr)->next)){
+        while(line_right_on(l, *(*xl)->prev->p) && (*xl) != (*xl)->prev){
             (*xl) = (*xl)->prev;
             point_copy(l, *(*xl)->p);
         }
-        while(line_right_on(l, *(*xr)->next->p) && (*xr) != (*xr)->next && !point_is_equal(*(*xr)->p,*(*xr)->next->p)){
+        while(line_right_on(l, *(*xr)->next->p) && (*xr) != (*xr)->next){
             (*xr) = (*xr)->next;
             point_copy(l+1, *(*xr)->p);
         }
@@ -66,14 +66,14 @@ void find_higher_lim(Polygon** pol0, Polygon** pol1,
     //printf("\tright to join: ");
     //print_point(*(*xr)->p);
     
-    while((line_left_on(l, *(*xl)->next->p) && (*xl) != (*xl)->next && !point_is_equal(*(*xl)->p,*(*xl)->next->p)) || 
-            (line_left_on(l, *(*xr)->prev->p) && (*xr) != (*xr)->prev && !point_is_equal(*(*xr)->p,*(*xr)->prev->p))){
-        while(line_left_on(l, *(*xl)->next->p) && (*xl) != (*xl)->next && !point_is_equal(*(*xl)->p,*(*xl)->next->p)){
+    while((line_left_on(l, *(*xl)->next->p) && (*xl) != (*xl)->next) || 
+            (line_left_on(l, *(*xr)->prev->p) && (*xr) != (*xr)->prev)){
+        while(line_left_on(l, *(*xl)->next->p) && (*xl) != (*xl)->next){
             //printf("\tadvance in left\n");
             (*xl) = (*xl)->next;
             point_copy(l, *(*xl)->p);
         }
-        while(line_left_on(l, *(*xr)->prev->p) && (*xr) != (*xr)->prev && !point_is_equal(*(*xr)->p,*(*xr)->prev->p)){
+        while(line_left_on(l, *(*xr)->prev->p) && (*xr) != (*xr)->prev){
             //printf("\tadvance in right\n");
             (*xr) = (*xr)->prev;
             point_copy(l+1, *(*xr)->p);
@@ -149,7 +149,8 @@ void create_hull_aux(Polygon** ret,
 }
 
 void create_hull(Polygon** ret, DynamicArray* d){
-    merge_sort((Point**)d->items, d->total, cmp_x);
+    size_t size = merge_sort_diff((Point**)d->items, d->total, cmp_x);
+    d->total = size;
     Polygon* xl,* xr;
     create_hull_aux(ret, &xl, &xr, (Point**)d->items, d->total);
 }
