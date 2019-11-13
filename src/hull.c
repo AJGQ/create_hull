@@ -34,53 +34,69 @@ int cmp_x(const Point* a, const Point* b){
 }
 
 void find_lower_lim(Polygon** pol0_, Polygon** pol1_, 
-        Polygon** xl, Polygon** xr){
-    if(!(*xl) || !(*xr)) return;
+        Polygon* xll, Polygon* xrr,
+        Polygon* xlr, Polygon* xrl){
+    if(!xlr || !xrl) return;
 
     Line l;
-    line_create(&l, *(*xl)->p, *(*xr)->p);
+    line_create(&l, *xlr->p, *xrl->p);
     
-    while((line_right_on(l, *(*xl)->prev->p) && (*xl) != (*xl)->prev) || 
-            (line_right_on(l, *(*xr)->next->p) && (*xr) != (*xr)->next)){
-        while(line_right_on(l, *(*xl)->prev->p) && (*xl) != (*xl)->prev){
-            (*xl) = (*xl)->prev;
-            point_copy(l, *(*xl)->p);
+    while((line_right_on(l, *xlr->prev->p) && xlr != xlr->prev) || 
+            (line_right_on(l, *xrl->next->p) && xrl != xrl->next)){
+        while(line_right_on(l, *xlr->prev->p) && xlr != xlr->prev){
+            xlr = xlr->prev;
+            point_copy(l, *xlr->p);
+            if(xlr == xll){
+                goto end_lower;
+            }
         }
-        while(line_right_on(l, *(*xr)->next->p) && (*xr) != (*xr)->next){
-            (*xr) = (*xr)->next;
-            point_copy(l+1, *(*xr)->p);
+        while(line_right_on(l, *xrl->next->p) && xrl != xrl->next){
+            xrl = xrl->next;
+            point_copy(l+1, *xrl->p);
+            if(xrl == xrr){
+                goto end_lower;
+            }
         }
     }
-    *pol0_ = (*xl);
-    *pol1_ = (*xr);
+    end_lower:
+    *pol0_ = xlr;
+    *pol1_ = xrl;
 }
 
 void find_higher_lim(Polygon** pol0, Polygon** pol1, 
-        Polygon** xl, Polygon** xr){
-    if(!(*xl) || !(*xr)) return;
+        Polygon* xll, Polygon* xrr,
+        Polygon* xlr, Polygon* xrl){
+    if(!xlr || !xrl) return;
 
     Line l;
-    line_create(&l, *(*xl)->p, *(*xr)->p);
+    line_create(&l, *xlr->p, *xrl->p);
     //printf("\tleft to join: ");
-    //print_point(*(*xl)->p);
+    //print_point(*xlr->p);
     //printf("\tright to join: ");
-    //print_point(*(*xr)->p);
+    //print_point(*xrl->p);
     
-    while((line_left_on(l, *(*xl)->next->p) && (*xl) != (*xl)->next) || 
-            (line_left_on(l, *(*xr)->prev->p) && (*xr) != (*xr)->prev)){
-        while(line_left_on(l, *(*xl)->next->p) && (*xl) != (*xl)->next){
+    while((line_left_on(l, *xlr->next->p) && xlr != xlr->next) || 
+            (line_left_on(l, *xrl->prev->p) && xrl != xrl->prev)){
+        while(line_left_on(l, *xlr->next->p) && xlr != xlr->next){
             //printf("\tadvance in left\n");
-            (*xl) = (*xl)->next;
-            point_copy(l, *(*xl)->p);
+            xlr = xlr->next;
+            point_copy(l, *xlr->p);
+            if(xlr == xll){
+                goto end_higher;
+            }
         }
-        while(line_left_on(l, *(*xr)->prev->p) && (*xr) != (*xr)->prev){
+        while(line_left_on(l, *xrl->prev->p) && xrl != xrl->prev){
             //printf("\tadvance in right\n");
-            (*xr) = (*xr)->prev;
-            point_copy(l+1, *(*xr)->p);
+            xrl = xrl->prev;
+            point_copy(l+1, *xrl->p);
+            if(xrl == xrr){
+                goto end_higher;
+            }
         }
     }
-    *pol0 = (*xl);
-    *pol1 = (*xr);
+    end_higher:
+    *pol0 = xlr;
+    *pol1 = xrl;
 }
 
 void create_hull_aux(Polygon** ret, 
@@ -99,13 +115,13 @@ void create_hull_aux(Polygon** ret,
     size_t m = size/2 + size%2;
 
     Polygon* poll,* polr;
-    Polygon* xll,* xlr,* xrl,* xrr,* xrl_,* xlr_;
+    Polygon* xll,* xlr,* xrl,* xrr;//* xrl_,* xlr_;
 
     create_hull_aux(&poll, &xll, &xlr, arr, m);
     create_hull_aux(&polr, &xrl, &xrr, arr + m, size - m);
 
-    xlr_ = xlr;
-    xrl_ = xrl;
+    //xlr_ = xlr;
+    //xrl_ = xrl;
     *xl = xll;
     *xr = xrr;
 
@@ -119,8 +135,8 @@ void create_hull_aux(Polygon** ret,
     //print_point(*xll->p);
     //printf("xrr: ");
     //print_point(*xrr->p);
-    find_lower_lim(&pol0_, &pol1_, &xlr_, &xrl_);
-    find_higher_lim(&pol0, &pol1, &xlr, &xrl);
+    find_lower_lim(&pol0_, &pol1_, xll, xrr, xlr, xrl);
+    find_higher_lim(&pol0, &pol1, xll, xrr, xlr, xrl);
     //printf("lower_lim: (%d, %d) (%d, %d)\n", (*pol0_->p)[X], (*pol0_->p)[Y],
     //                                         (*pol1_->p)[X], (*pol1_->p)[Y]
     //);
