@@ -12,8 +12,9 @@ show_points :: [Point] -> String
 show_points = foldr (\p -> \s -> ((show_point p)++"\n"++s) ) ""
 
 handler :: Event -> Viz -> Viz
-handler (EventKey (Char 'n') Up _ _) v@(Viz _ _ _ []) = v
-handler (EventKey (Char 'n') Up _ _) (Viz ps o a (a':as)) = Viz ps (o++a) a' as
+handler (EventKey (Char 'n') Up _ _) v@(Viz _ _ []) = v
+handler (EventKey (Char 'n') Up _ _) (Viz ps sa ([a']:as)) = Viz ps ([a']:sa) as
+handler (EventKey (Char 'n') Up _ _) (Viz ps (_:_:sa) (a':as)) = Viz ps (a':sa) as
 handler e v = v 
 
 update :: Float -> Viz -> Viz

@@ -10,10 +10,9 @@ show_action (p0,p1)
 
 
 showViz :: Viz -> Picture
-showViz (Viz ps o a _) = Pictures $ pps ++ po ++ pa
+showViz (Viz ps sa _) = Pictures $ pps ++ psa
     where
         pps = map (\(x,y) -> Translate x y pp) ps
         pp = Color white . (\d -> ThickCircle (d/2) d) $ 5
-        pa = map show_action a
-        po = map (\(p1,p2) -> Color (greyN 0.3) $ Line [p1, p2]) o
+        psa = map (Pictures . map show_action) sa
 

@@ -40,25 +40,25 @@ void find_lower_lim(Polygon** pol0_, Polygon** pol1_,
 
     Line l;
     line_create(&l, *xlr->p, *xrl->p);
+    bool left_lim = false, right_lim = false;
     
     while((line_right_on(l, *xlr->prev->p) && xlr != xlr->prev) || 
             (line_right_on(l, *xrl->next->p) && xrl != xrl->next)){
-        while(line_right_on(l, *xlr->prev->p) && xlr != xlr->prev){
+        while(line_right_on(l, *xlr->prev->p) && xlr != xlr->prev && !left_lim){
             xlr = xlr->prev;
             point_copy(l, *xlr->p);
             if(xlr == xll){
-                goto end_lower;
+                left_lim = true;
             }
         }
-        while(line_right_on(l, *xrl->next->p) && xrl != xrl->next){
+        while(line_right_on(l, *xrl->next->p) && xrl != xrl->next && !right_lim){
             xrl = xrl->next;
             point_copy(l+1, *xrl->p);
             if(xrl == xrr){
-                goto end_lower;
+                right_lim = true;
             }
         }
     }
-    end_lower:
     *pol0_ = xlr;
     *pol1_ = xrl;
 }
@@ -70,31 +70,27 @@ void find_higher_lim(Polygon** pol0, Polygon** pol1,
 
     Line l;
     line_create(&l, *xlr->p, *xrl->p);
-    //printf("\tleft to join: ");
-    //print_point(*xlr->p);
-    //printf("\tright to join: ");
-    //print_point(*xrl->p);
+    bool left_lim = false, right_lim = false;
     
     while((line_left_on(l, *xlr->next->p) && xlr != xlr->next) || 
             (line_left_on(l, *xrl->prev->p) && xrl != xrl->prev)){
-        while(line_left_on(l, *xlr->next->p) && xlr != xlr->next){
+        while(line_left_on(l, *xlr->next->p) && xlr != xlr->next && !left_lim){
             //printf("\tadvance in left\n");
             xlr = xlr->next;
             point_copy(l, *xlr->p);
             if(xlr == xll){
-                goto end_higher;
+                left_lim = true;
             }
         }
-        while(line_left_on(l, *xrl->prev->p) && xrl != xrl->prev){
+        while(line_left_on(l, *xrl->prev->p) && xrl != xrl->prev && !right_lim){
             //printf("\tadvance in right\n");
             xrl = xrl->prev;
             point_copy(l+1, *xrl->p);
             if(xrl == xrr){
-                goto end_higher;
+                right_lim = true;
             }
         }
     }
-    end_higher:
     *pol0 = xlr;
     *pol1 = xrl;
 }

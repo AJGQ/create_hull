@@ -15,7 +15,7 @@ fps :: Num a => a
 fps = 30
 
 type Action = [(Point, Point)]
-data Viz = Viz [Point] Action Action [Action]
+data Viz = Viz [Point] [Action] [Action]
 
 vizInit :: [Point] -> [Action] -> Viz
-vizInit ps as = Viz ps [] [] as
+vizInit ps as = Viz ps [] as
