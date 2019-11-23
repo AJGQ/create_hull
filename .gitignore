@@ -4,3 +4,7 @@ src/hull
 animate/animate
 visualize/visualize
 a.out
+*.aux
+*.bbl
+*.blg
+*.log
