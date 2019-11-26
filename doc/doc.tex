@@ -7,25 +7,25 @@
 
 \section{Introdução}
 Neste trabalho abordamos um dos principais temas de Geometria 
-Computaçional, Involucros Convexos.
+Computacional, Invólucros Convexos.
 Estes são muito usados porque ...
 
-Existem varias formas de construir um, mas neste trabalho vamos
+Existem várias formas de construir um, mas neste trabalho vamos
 nos cingir a implementar o "merge-hull"
 Que é um algoritmo que se usa, umas das tecnicas mais importantes
 na computação, que se chama "Dividir para conquistar".
 Que se baseia em dividir um problema complexo, em problemas mais 
-pequenos e mais façeis.
+pequenos e mais faceis.
 
 \section{Descrição}
 Para implementarmos o algoritmo apenas temos que seguir os passos
 a baixo.
 
 \begin{itemize}
-    \item Ordenar os pontos pela cordenada x
-    \item Separar os pontos em dois conjuntos A e B, onde A contém os pontos da esquerda e B os da direita.
-    \item Calcular o involucro convexo de A, A = I(A) e o de B, B = I(B) recursivamente
-    \item No final Juntar A e B, calculando A $\cup$ B.
+    \item Ordenar os pontos por ordem lexicográfica.
+    \item Separar os pontos em dois conjuntos A e B, onde A contem os pontos da esquerda e B os da direita.
+    \item Calcular o invólucro convexo de A, $\mathcal{A}$ = I(A) e o de B, $\mathcal{B}$ = I(B) recursivamente
+    \item No final juntar $\mathcal{A}$ e $\mathcal{B}$, calculando o invólucro convexo de A $\cup$ B.
 \end{itemize}
 
 Agora vamos explicar com mais detalhe todo o processo.
@@ -33,42 +33,48 @@ Agora vamos explicar com mais detalhe todo o processo.
 Para ordenar os pontos, pode ser usado qualquer algoritmo de ordenação,
 tendo em atenção que a escolha do algoritmo de ordenação, pode alterar a
 complexidade do algoritmo como um todo.
-Nós optamos por escolher o algoritmo de ordenação merge sort,
-além de ter uma das melhores complexidades N*LOG(n), achamos 
-que se enquadra perfeitamente no espirito do algorimo, "Dividir para conquistar".
+Nós optamos por escolher o algoritmo de ordenação \textit{merge sort},
+além de ter uma das melhores complexidades $\mathcal{O}(n\log{}n)$, achamos 
+que se enquadra perfeitamente no espirito do algoritmo, "Dividir para conquistar".
 
-Mergesorte(Array, esquerda, direita)
-Começando com esquerda a 0, e a direita ao tamanho do array -1
+\subsection{Descrição de MergeSort}
+Input: array, indice esquerdo, indice direito\\
+
+Começando com o indice esquerdo a 0, e a indice direito a (\textit{tamanho do array}) - 1
 \begin{itemize}
-    \item Primeiro encontra-se o medio do Array e divide-se em dois. ( meio = (esquerda + direita)/2 )
-    \item Calcular o MergeSorte(Array,esuqera,meio), com a lista que fica à esuqeda 
-    \item Calcular o MergeSorte(Array,meio+1,dir), com a lista que fica à esuqeda 
+    \item Primeiro encontra-se o indice médio do Array e divide-se em dois. ( meio = (esquerda + direita)/2 )
+    \item Calcular o MergeSort(array, esquerda, meio), com a lista que fica à esquerda 
+    \item Calcular o MergeSort(array, meio+1, direita), com a lista que fica à direita
     \item No final junta os dois de forma ordenada.
 \end{itemize}
 
 \subsection{ Separar os Pontos em dois conjuntos}
 
-\subsection{ Calcular o involucro convexo } 
+\subsection{ Calcular o invólucro convexo } 
 
-\subsection{ Juntar os Involucros convexos } 
+\subsection{ Juntar os invólucros convexos } 
 
 
 \section{Correção}
-Depois de mostrarmos como é o algorimo,
-aqui vamos provar, porque é que o algoritmo faz o que diz que faz.
+Depois de mostrarmos como é o algoritmo,
+aqui vamos provar, porque é que o algoritmo faz o que diz que faz.\\
+
+\vspace{.5cm}
+
+Qed.
 
 \section{Complexidade}
 A nossa implementação não foi exatamente igual ao algoritmo original,
-apsar de não alterar na conta da complexidade assintoticamente.
+apesar de não alterar na conta da complexidade assintoticamente.
 Por isso vamos avaliar a correção da nossa implementação, e quando 
-achamos pretinente, vamos fazer a resalva, mensionando as difrenças 
+achamos pertinente, vamos fazer a ressalva, mensionando as diferenças 
 em relação ao algoritmo original.
 
 \begin{itemize}
     \item Ordenar os pontos pela cordenada x, tem Complexidade $\mathcal{O}(n\log{}n)$
     \item Separar os pontos em dois conjuntos A e B, onde A contém os pontos da esquerda e B os da direita.
-    \item Calcular o involucro convexo de A, A = I(A) e o de B, B = I(B) recursivamente
-    \item No final Juntar A e B, calculando A $\cup$ B.
+    \item Calcular o invólucro convexo de A, $\mathcal{A}$ = I(A) e o de B, $\mathcal{B}$ = I(B) recursivamente
+    \item No final juntar $\mathcal{A}$ e $\mathcal{B}$, calculando o invólucro convexo de A $\cup$ B.
 \end{itemize}
 
 \section{Conclusão}
