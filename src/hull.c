@@ -1,7 +1,8 @@
 #include "../lib/polygon/polygon.h"
 #include "../lib/polygon/polygon.h"
 #include "../lib/dynamic_array/dynamic_array.h"
-#include "../lib/dynamic_array/merge_sort_diff.h"
+#include "../lib/utils/merge_sort.h"
+#include "../lib/utils/remove_repeated.h"
 #include "../lib/point/point.h"
 #include "../lib/line/line.h"
 #include <stdlib.h>
@@ -161,8 +162,10 @@ void create_hull_aux(Polygon** ret,
 }
 
 void create_hull(Polygon** ret, DynamicArray* d){
-    size_t size = merge_sort_diff((Point**)d->items, d->total, cmp_x);
+    merge_sort((Point**)d->items, d->total, cmp_x);
+    size_t size = remove_repeated((Point**)d->items, d->total, cmp_x);
     d->total = size;
+    dynamic_array_resize(d, size);
     Polygon* xl,* xr;
     create_hull_aux(ret, &xl, &xr, (Point**)d->items, d->total);
 }

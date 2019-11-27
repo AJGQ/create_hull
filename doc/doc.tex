@@ -34,7 +34,7 @@ Para ordenar os pontos, pode ser usado qualquer algoritmo de ordenação,
 tendo em atenção que a escolha do algoritmo de ordenação, pode alterar a
 complexidade do algoritmo como um todo.
 Nós optamos por escolher o algoritmo de ordenação \textit{merge sort},
-além de ter uma das melhores complexidades $\mathcal{O}(n\log{}n)$, achamos 
+além de ter uma das melhores complexidades $\Theta(n\log{}n)$, achamos 
 que se enquadra perfeitamente no espirito do algoritmo, "Dividir para conquistar".
 
 \subsection{Descrição de MergeSort}
@@ -71,7 +71,7 @@ achamos pertinente, vamos fazer a ressalva, mensionando as diferenças
 em relação ao algoritmo original.
 
 \begin{itemize}
-    \item Ordenar os pontos pela cordenada x, tem Complexidade $\mathcal{O}(n\log{}n)$
+    \item Ordenar os pontos pela cordenada x, tem Complexidade $\Theta(n\log{}n)$
     \item Separar os pontos em dois conjuntos A e B, onde A contém os pontos da esquerda e B os da direita.
     \item Calcular o invólucro convexo de A, $\mathcal{A}$ = I(A) e o de B, $\mathcal{B}$ = I(B) recursivamente
     \item No final juntar $\mathcal{A}$ e $\mathcal{B}$, calculando o invólucro convexo de A $\cup$ B.
