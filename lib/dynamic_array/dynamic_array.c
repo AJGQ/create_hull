@@ -63,7 +63,7 @@ size_t dynamic_array_capacity(DynamicArray *v) {
     return v->capacity;
 }
 
-static int dynamic_array_resize(DynamicArray *v, size_t capacity) {
+/*static*/ int dynamic_array_resize(DynamicArray *v, size_t capacity) {
 
     #ifdef DEBUG_ON
         printf("------------------------------\n");

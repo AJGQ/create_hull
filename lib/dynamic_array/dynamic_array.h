@@ -23,7 +23,7 @@ int dynamic_array_create(DynamicArray *);
 DynamicArray dynamic_array_slice(DynamicArray * , size_t );
 size_t dynamic_array_size(DynamicArray *);
 size_t dynamic_array_capacity(DynamicArray *);
-static int dynamic_array_resize(DynamicArray *, size_t);
+/*static*/ int dynamic_array_resize(DynamicArray *, size_t);
 int dynamic_array_push(DynamicArray *, void *);
 int dynamic_array_insert(DynamicArray *, size_t, void *);
 void *dynamic_array_get(DynamicArray *, size_t);
