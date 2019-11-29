@@ -76,7 +76,6 @@ void find_higher_lim(Polygon** pol0, Polygon** pol1,
     while((line_left_on(l, *xlr->next->p) && xlr != xlr->next) || 
             (line_left_on(l, *xrl->prev->p) && xrl != xrl->prev)){
         while(line_left_on(l, *xlr->next->p) && xlr != xlr->next && !left_lim){
-            //printf("\tadvance in left\n");
             xlr = xlr->next;
             point_copy(l, *xlr->p);
             if(xlr == xll){
@@ -84,7 +83,6 @@ void find_higher_lim(Polygon** pol0, Polygon** pol1,
             }
         }
         while(line_left_on(l, *xrl->prev->p) && xrl != xrl->prev && !right_lim){
-            //printf("\tadvance in right\n");
             xrl = xrl->prev;
             point_copy(l+1, *xrl->p);
             if(xrl == xrr){
@@ -112,51 +110,22 @@ void create_hull_aux(Polygon** ret,
     size_t m = size/2 + size%2;
 
     Polygon* poll,* polr;
-    Polygon* xll,* xlr,* xrl,* xrr;//* xrl_,* xlr_;
+    Polygon* xll,* xlr,* xrl,* xrr;
 
     create_hull_aux(&poll, &xll, &xlr, arr, m);
     create_hull_aux(&polr, &xrl, &xrr, arr + m, size - m);
 
-    //xlr_ = xlr;
-    //xrl_ = xrl;
     *xl = xll;
     *xr = xrr;
 
     Polygon* pol0,* pol0_,* pol1,* pol1_;
 
-    //printf("xlr: ");
-    //print_point(*xlr->p);
-    //printf("xrl: ");
-    //print_point(*xrl->p);
-    //printf("xll: ");
-    //print_point(*xll->p);
-    //printf("xrr: ");
-    //print_point(*xrr->p);
     find_lower_lim(&pol0_, &pol1_, xll, xrr, xlr, xrl);
     find_higher_lim(&pol0, &pol1, xll, xrr, xlr, xrl);
-    //printf("lower_lim: (%d, %d) (%d, %d)\n", (*pol0_->p)[X], (*pol0_->p)[Y],
-    //                                         (*pol1_->p)[X], (*pol1_->p)[Y]
-    //);
-    //printf("higherlim: (%d, %d) (%d, %d)\n", (*pol0->p)[X], (*pol0->p)[Y],
-    //                                         (*pol1->p)[X], (*pol1->p)[Y]
-    //);
 
     polygon_join(pol0, pol0_, pol1, pol1_);
-    //printf("----------");
-    //printf("xlr: ");
-    //print_point(*xlr->p);
-    //printf("xrl: ");
-    //print_point(*xrl->p);
-    //printf("xll: ");
-    //print_point(*xll->p);
-    //printf("xrr: ");
-    //print_point(*xrr->p);
 
     *ret = *xl;
-    //printf("--left most: ");
-    //print_point(*(*xl)->p);
-    //printf("--right most: ");
-    //print_point(*(*xr)->p);
 
     print_pol(*ret);    
 }
