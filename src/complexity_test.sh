@@ -1,7 +1,10 @@
-for i in {1..100000}; do
+how_many_tests=1
+gap_between_tests=1000000
+for i in `seq 1 $how_many_tests`; do
     echo $i;
-    for j in `seq 1 100`; do 
-        echo $RANDOM $RANDOM;
+    for j in `seq 1 $((i*gap_between_tests))`; do 
+        echo $((-450 + RANDOM % 900)) $((-300 + RANDOM % 600));
     done > "tests/test$i.pts";
-    time ./hull < "tests/test$i.pts" > "tests/time$i.txt";
+    ./hull < "tests/test$i.pts"; #>> "time.txt";
+    sleep 0.01
 done

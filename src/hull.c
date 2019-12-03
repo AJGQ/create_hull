@@ -7,6 +7,7 @@
 #include "../lib/line/line.h"
 #include <stdlib.h>
 #include <stdio.h>
+#include <time.h>
 
 void pprint_pol(Polygon* pol){
     if(!pol) return;
@@ -41,18 +42,19 @@ void find_lower_lim(Polygon** pol0_, Polygon** pol1_,
 
     Line l;
     line_create(&l, *xlr->p, *xrl->p);
-    bool left_lim = false, right_lim = false;
+    bool left_lim = (xlr == xll), 
+         right_lim = (xrl == xrr);
     
-    while((line_right_on(l, *xlr->prev->p) && xlr != xlr->prev) || 
-            (line_right_on(l, *xrl->next->p) && xrl != xrl->next)){
-        while(line_right_on(l, *xlr->prev->p) && xlr != xlr->prev && !left_lim){
+    while((line_right_on(l, *xlr->prev->p) && !left_lim) || 
+            (line_right_on(l, *xrl->next->p) && !right_lim)){
+        while(line_right_on(l, *xlr->prev->p) && !left_lim){
             xlr = xlr->prev;
             point_copy(l, *xlr->p);
             if(xlr == xll){
                 left_lim = true;
             }
         }
-        while(line_right_on(l, *xrl->next->p) && xrl != xrl->next && !right_lim){
+        while(line_right_on(l, *xrl->next->p) && !right_lim){
             xrl = xrl->next;
             point_copy(l+1, *xrl->p);
             if(xrl == xrr){
@@ -71,18 +73,19 @@ void find_higher_lim(Polygon** pol0, Polygon** pol1,
 
     Line l;
     line_create(&l, *xlr->p, *xrl->p);
-    bool left_lim = false, right_lim = false;
+    bool left_lim = (xlr == xll), 
+         right_lim = (xrl == xrr);
     
-    while((line_left_on(l, *xlr->next->p) && xlr != xlr->next) || 
-            (line_left_on(l, *xrl->prev->p) && xrl != xrl->prev)){
-        while(line_left_on(l, *xlr->next->p) && xlr != xlr->next && !left_lim){
+    while((line_left_on(l, *xlr->next->p) && !left_lim) || 
+            (line_left_on(l, *xrl->prev->p) && !right_lim)){
+        while(line_left_on(l, *xlr->next->p) && !left_lim){
             xlr = xlr->next;
             point_copy(l, *xlr->p);
             if(xlr == xll){
                 left_lim = true;
             }
         }
-        while(line_left_on(l, *xrl->prev->p) && xrl != xrl->prev && !right_lim){
+        while(line_left_on(l, *xrl->prev->p) && !right_lim){
             xrl = xrl->prev;
             point_copy(l+1, *xrl->p);
             if(xrl == xrr){
@@ -104,7 +107,7 @@ void create_hull_aux(Polygon** ret,
         *xl = *ret;
         *xr = *ret;
 
-        print_pol(*ret);    
+        //print_pol(*ret);    
         return;
     }
     size_t m = size/2 + size%2;
@@ -127,7 +130,7 @@ void create_hull_aux(Polygon** ret,
 
     *ret = *xl;
 
-    print_pol(*ret);    
+    //print_pol(*ret);    
 }
 
 void create_hull(Polygon** ret, DynamicArray* d){
@@ -143,17 +146,24 @@ int main(){
     DynamicArray d;
     dynamic_array_create(&d);
     Point p;
+    time_t clock_ini, clock_fin;
+    size_t points = 0;
 
     while(scanf("%d %d", p+X, p+Y) == 2){
         Point* p_;
         p_ = (Point*)malloc(sizeof(Point));
         point_copy(p_, p);
-        printf("%d %d\n", (*p_)[X], (*p_)[Y]);
+        //printf("%d %d\n", (*p_)[X], (*p_)[Y]);
         dynamic_array_push(&d, (void*)p_);
+        points++;
     }
-    printf("$\n");
+    //printf("$\n");
     Polygon* pol;
+
+    clock_ini = clock();
     create_hull(&pol, &d);
+    clock_fin = clock();
+    printf("%ld\t%lf\n", points, (double)(clock_fin - clock_ini)/CLOCKS_PER_SEC);
 
     dynamic_array_destroy(&d);
     polygon_destroy(pol);
