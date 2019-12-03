@@ -8,4 +8,4 @@ a.out
 *.bbl
 *.blg
 *.log
-tests/*
+tests
