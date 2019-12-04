@@ -89,14 +89,14 @@ conecta-se as duas ligações.
 \section{Correção}
 Depois de mostrarmos como é o algoritmo,
 aqui vamos provar, porque é que o algoritmo faz o que diz que faz.
-Tendo I como a nossa função descrita em cima, Queremos que:
+Ou seja:
 
 $$
-< \forall S : S \in \mathcal{P}(Point) : 
-        < \forall i,j : i \in S \wedge j \in S : 
-            line(i,j) \subseteq I(S)
-        >
->
+\textless \forall s : s \in Set : 
+        \textless \forall e,i : e \in s \wedge i \in s : 
+            line(i,e) \in I(s)
+        \textgreater 
+\textgreater 
 $$\\
 % Set -> Set   \item Ordenar os pontos por ordem lexicográfica.
 % Set -> Set   \item Remover os pontos repetidos.
@@ -111,62 +111,13 @@ $$\\
 % Pol^2 -> Ver^4       \item Encontrar o pontos de junção.
 % Ver^4*Pol^2 -> Pol       \item Juntar $\mathcal{A}$ e $\mathcal{B}$, 
 %            calculando o invólucro convexo de A $\cup$ B.
-Caso base ($S = \emptyset $):\par
-    Como não há elementos é trivialmente verdade.\\
-Caso base ($\#S = 1$):\par
-    Seja S = \{e\},\par
-    Temos de mostrar que $\{e\} \subseteq I(\{e\})$\par
-    $e \in I(\{e\})$\par
-    $\equiv$\{Descrição do algoritmo\}\par
-    $e \in Poligon([e])$\par
-    $\equiv$\{Caso base de Poligon\}\par
-    $e \in \{e\}$ (Trivial)\\
-Caso indutivo:\par
-    Para $S = S_1 \cup S_2$\par
-    Por hipótese sabemos que:\par
-    \begin{enumerate}
-        \item 
-            $<\forall i,j : i \in S_1 \wedge j \in S_1 : 
-                line(i,j) \subseteq I(S_1)
-            >$
-        \item 
-            $<\forall i,j : i \in S_2 \wedge j \in S_2 : 
-                line(i,j) \subseteq I(S_2)
-            >$
-    \end{enumerate}\par
-    Queremos que:\par
-    $<\forall i,j : i \in S \wedge j \in S : 
-        line(i,j) \subseteq I(S)
-    >$\par
-    $\equiv$\{...\}\par
-    $< \forall i,j : i \in S \wedge j \in S : 
-        line(i,j) \subseteq join(I(S_1),I(S_2))
-    >$\par
-    $\equiv$\{...\}\par
-    $< \forall i,j : i \in S \wedge j \in S : 
-        line(i,j) \subseteq (I(S_1) \cup I(S_2)) \backslash freeJoin(S_1, S_2)
-    >$\par
-    $\equiv$\{...\}\par
-    $< \forall i,j : i \in S \wedge j \in S : 
-        line(i,j) \subseteq I(S_1) \backslash freeJoin(S_1, S_2) \cup I(S_2)\backslash freeJoin(S_1, S_2) 
-    >$\par
-    $\equiv$\{...\}\par
-    
+Caso base: ($#S = 1$)\par
+    S
+
+
 
 \hfill $\blacksquare$
 
-\subsection{Proposições}
-    \begin{enumerate}
-        \item $<\forall S',S :: S' \subseteq S \Rightarrow I(S') \subseteq I(S) >$
-        \item As linhas de junção estão bem feitas 
-            \begin{enumerate}
-                \item A de baixo $<\forall p \in S :: leftOn(l, p)>$
-                \item A de cima  $<\forall p \in S :: rightOn(l, p)>$
-            \end{enumerate}
-        \item Sejam as linhas de junção $l_1 = \overline{p_1,q_1}$ e $l_2 = \overline{p_2,q_2}$
-            Vamos definir $l'_1 = \overline{p_1,p_2}$ e $l'_2 = \overline{q_1,q_2}$ vamos querer que:\\
-            $< \forall l : l \in Line : l \cap l'_1 \neq \emptyset \wedge l \cap l'_2 \neq \emptyset>$
-    \end{enumerate}
 %--------------------------------------------
 
 \section{Complexidade}
