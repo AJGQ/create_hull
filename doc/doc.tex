@@ -155,18 +155,30 @@ Caso indutivo:\par
 
 \hfill $\blacksquare$
 
-\subsection{Proposições}
-    \begin{enumerate}
-        \item $<\forall S',S :: S' \subseteq S \Rightarrow I(S') \subseteq I(S) >$
-        \item As linhas de junção estão bem feitas 
-            \begin{enumerate}
-                \item A de baixo $<\forall p \in S :: leftOn(l, p)>$
-                \item A de cima  $<\forall p \in S :: rightOn(l, p)>$
-            \end{enumerate}
-        \item Sejam as linhas de junção $l_1 = \overline{p_1,q_1}$ e $l_2 = \overline{p_2,q_2}$
-            Vamos definir $l'_1 = \overline{p_1,p_2}$ e $l'_2 = \overline{q_1,q_2}$ vamos querer que:\\
-            $< \forall l : l \in Line : l \cap l'_1 \neq \emptyset \wedge l \cap l'_2 \neq \emptyset>$
-    \end{enumerate}
+\subsection{Proposição Sandwich}
+Seja H um invólucro convexo.\\
+Seja $l_s$ e $l_i$ linhas superior (com a orientação direita para a esquerda) e 
+inferior (com a orientação esquerda para a direita), respectivamente.\\
+Seja $p$ e $q$ pontos em H tais que $leftOn(l_s, p)$, $leftOn(l_s, q)$, $leftOn(l_i, p)$ e $leftOn(l_i, q)$\\
+Então,
+        $$<\forall n : n \in \overline{p\ q} : leftOn(l_s, n) \wedge leftOn(l_i, n)>$$
+
+\subsection{Proposição Tangente}
+Seja 
+    H um invólucro convexo e 
+    l uma linha que interceta num ponto de H, $p_1$,
+no sentido contrário dos ponteiros do relógio.
+Seja $p_0$ o ponto anterior a $p_1$ e $p_2$ o ponto posterior a $p_1$.
+Temos que:
+$$leftOn(l, p_0) \wedge leftOn(l, p_2) \Rightarrow
+    <\forall p : p \in H : leftOn(l, p)>$$
+
+\subsubsection{Demonstração}
+Suponhamos que $leftOn(l, p_0) \wedge leftOn(l, p_2)$ 
+e que existe um $p \in H$ tal que $right(l, p)$
+isso significa que a linha $\overline{p\ p_1}$ não está no invólucro convexo.
+Que é uma contradição, ou seja, $<\forall p : p \in H : leftOn(l, p)>$
+
 %--------------------------------------------
 
 \section{Complexidade}
