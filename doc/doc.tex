@@ -116,46 +116,8 @@ estritamente convexos e contém todo o conjunto de pontos.\\
 
 Seja S o conjunto de pontos dado no input.\\
 
-Caso base ($S = \emptyset$):\par
-    Como não há elementos é trivialmente verdade.\\
-Caso base ($\#S = 1$):\par
-    Seja S = \{e\},\par
-    Temos de mostrar que $e \in I(\{e\})$\par
-    $e \in I(\{e\})$\par
-    $\equiv$\{Descrição do algoritmo\}\par
-    $e \in \{e\}$ (Trivial)\\
-Caso indutivo:\par
-    Para $S = S_1 \cup S_2$\par
-    Por hipótese sabemos que:\par
-    \begin{enumerate}
-        \item 
-            $<\forall p_1 : p_1 \in S_1 : 
-                p_1 \in I(S_1)
-            >$
-        \item 
-            $<\forall p_2 : p_2 \in S_2 : 
-                p_2 \in I(S_2)
-            >$
-    \end{enumerate}\par
-    Queremos que:\par
-    $<\forall p : p \in S : 
-        p \in I(S)
-    >$\par
-    $\equiv$\{...\}\par
-    $<\forall p : p \in S : 
-        p \in I(S)
-    >$\par
-    $\equiv$\{...\}\par
 
 \hfill $\blacksquare$
-
-\subsection{Proposição Sandwich}
-Seja H um invólucro convexo.\\
-Seja $l_s$ e $l_i$ linhas superior (com a orientação direita para a esquerda) e 
-inferior (com a orientação esquerda para a direita), respectivamente.\\
-Seja $p$ e $q$ pontos em H tais que $leftOn(l_s, p)$, $leftOn(l_s, q)$, $leftOn(l_i, p)$ e $leftOn(l_i, q)$\\
-Então,
-        $$<\forall n : n \in \overline{p\ q} : leftOn(l_s, n) \wedge leftOn(l_i, n)>$$
 
 \subsection{Proposição Tangente}
 Seja 
