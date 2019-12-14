@@ -35,7 +35,7 @@ a baixo.
         \item Se o conjunto tem apenas 1 elemento, criar um "polígono"
             de 1 elemento e acaba-se a função.
         \item Separar os pontos em dois conjuntos A e B, 
-            onde A contem os pontos da esquerda e B os da direita.
+            onde A contém os pontos da esquerda e B os da direita.
         \item Calcular o invólucro convexo de A, 
             $\mathcal{A}$ = I(A) e o de B, $\mathcal{B}$ = I(B) recursivamente
         \item Encontrar o pontos de junção.
@@ -114,26 +114,70 @@ do conjunto dado no input, basta provar que o poligono retornado,
 com os vértices positivamente orientados, tem todos os vértices 
 estritamente convexos e contém todo o conjunto de pontos.\\
 
+[Provar para os casos base 0, 1 e 2]
+
+\subsection{Todos os vértices são estritamente convexos}
+
 Seja S o conjunto de pontos dado no input.\\
+
+caso indutivo:\\
+Seja $S = S_1 \cup S_2$ tal que todos os pontos de $S_1$
+sejam menores que os pontos de $S_2$ (lexicograficamente).\\
+Hipoteses Indutivas:
+\begin{enumerate}
+    \item $< \forall p_i : p_i \in I(S_1) : \mathcal{A}(p_{i-1}, p_i, p_{i+1}) > 0 >$
+    \item $< \forall p_i : p_i \in I(S_2) : \mathcal{A}(p_{i-1}, p_i, p_{i+1}) > 0 >$
+\end{enumerate}
+
+Na função \textit{find\_lower\_lim} começa-se com a linha,
+do maior vértice de $I(S_1)$ ao menor vértice de $I(S_2)$ (lexicograficamente).
+A partir do vértice atual de $I(S_1)$ segue-se para o anterior, o mais 
+longe possível, até que o vértice anterior esteja estritamente à
+esquerda da linha, de seguida fazemos o dual para o vértice de $I(S_2)$.
+Repetindo este processo até não se conseguir mais.\par
+Quando não conseguirmos mais, significa que encontramos 2 vértices 
+$p_i$ e $q_i$, tais que:\\
+\\
+$left(\overline{p_i q_i}, p_{i-1}) \wedge left(\overline{p_i q_i}, q_{i+1})$\\
+$\equiv$ \{ definição de left \}\\
+$\mathcal{A}(p_i, q_i, p_{i-1}) > 0 \wedge \mathcal{A}(p_i, q_i, q_{i+1}) > 0$\\
+$\equiv$ \{ regra dada na aula \}\\
+$\mathcal{A}(p_{i-1}, p_i, q_i) > 0 \wedge \mathcal{A}(p_i, q_i, q_{i+1}) > 0$\\
+
+A função \textit{find\_higher\_lim} é análoga à \textit{find\_lower\_lim},
+por isso arranjamos 2 vértices $p_i$ e $q_i$, tais que:\\
+\\
+$left(\overline{q_i p_i}, p_{i+1}) \wedge left(\overline{q_i p_i}, q_{i-1})$\\
+$\equiv$ \{ definição de left \}\\
+$\mathcal{A}(q_i, p_i, p_{i+1}) > 0 \wedge \mathcal{A}(q_i, p_i, q_{i-1}) > 0$\\
+$\equiv$ \{ regra dada na aula \}\\
+$\mathcal{A}(q_i, p_i, p_{i+1}) > 0 \wedge \mathcal{A}(q_{i-1}, q_i, p_i) > 0$\\
+
+Com isto temos que os vértices encontrados que foram 
+usados para juntar os dois invólucros são estritamente
+convexos no $I(S)$. Como por indução sabemos que os 
+outros vértices são estritamente convexos, significa
+que todos os vértices em $I(S)$ são estritamente convexos.
+
 
 
 \hfill $\blacksquare$
 
 \subsection{Proposição Tangente}
 Seja 
-    H um invólucro convexo e 
-    l uma linha que interceta num ponto de H, $p_1$,
+    I um invólucro convexo e 
+    l uma linha que interseta num vértice de I, $p_i$,
 no sentido contrário dos ponteiros do relógio.
-Seja $p_0$ o ponto anterior a $p_1$ e $p_2$ o ponto posterior a $p_1$.
+Seja $p_{i-1}$ o vértice anterior a $p_i$ e $p_{i+1}$ o vértice posterior a $p_i$.
 Temos que:
-$$leftOn(l, p_0) \wedge leftOn(l, p_2) \Rightarrow
-    <\forall p : p \in H : leftOn(l, p)>$$
+$$leftOn(l, p_{i-1}) \wedge leftOn(l, p_{i+1}) \Rightarrow
+    <\forall p : p \in I : leftOn(l, p)>$$
 
 \subsubsection{Demonstração}
-Suponhamos que $leftOn(l, p_0) \wedge leftOn(l, p_2)$ 
-e que existe um $p \in H$ tal que $right(l, p)$
-isso significa que a linha $\overline{p\ p_1}$ não está no invólucro convexo.
-Que é uma contradição, ou seja, $<\forall p : p \in H : leftOn(l, p)>$
+Suponhamos que $leftOn(l, p_{i-1}) \wedge leftOn(l, p_{i+1})$ 
+e que existe um $p \in I$ tal que $right(l, p)$
+isso significa que a linha $\overline{p\ p_i}$ não está no invólucro convexo.
+Que é uma contradição, ou seja, $<\forall p : p \in I : leftOn(l, p)>$
 
 %--------------------------------------------
 
