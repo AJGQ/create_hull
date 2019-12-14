@@ -81,7 +81,7 @@ tivesse uma complexidade constante é tão simples como encontrar o
 índice a meio do array.
 
 \subsection{ Juntar os invólucros convexos } 
-Liberta-se a memória dos vertices entre as duas ligações e de seguida 
+Liberta-se a memória dos vértices entre as duas ligações e de seguida 
 conecta-se as duas ligações.
 
 %--------------------------------------------
@@ -93,8 +93,29 @@ Tendo I como a nossa função descrita em cima.\\
 \\
 Queremos que no fim de execução do algoritmo, o poligono
 retornado seja o invólucro convexo do conjunto dado 
-no input.\\
-\\
+no input.\par
+Para isso vamos usar um Corolário dado nas aulas, descrito como:
+
+\begin{center}
+    "Seja $S \subseteq \mathbb{R}^2$ e $P$ um poligono de vértices 
+    positivamente orientados $v_0,...,v_{n-1} \in S$ tal que cada
+    vértice é estritamente convexo e $S \subseteq P$. Então $P$ é
+    o invólucro convexo de S."
+\end{center}
+
+E a definição:
+
+\begin{center}
+    "$v_i$ diz-se estritamente convexo se $\mathcal{A}(v_{i-1},v_i,v_{i+1}) > 0$."
+\end{center}
+
+Agora para provar que o nosso algoritmo retorna o invólucro convexo
+do conjunto dado no input, basta provar que o poligono retornado,
+com os vértices positivamente orientados, tem todos os vértices 
+estritamente convexos e contém todo o conjunto de pontos.\\
+
+Seja S o conjunto de pontos dado no input.\\
+
 Caso base ($S = \emptyset$):\par
     Como não há elementos é trivialmente verdade.\\
 Caso base ($\#S = 1$):\par
