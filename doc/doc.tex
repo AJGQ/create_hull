@@ -163,6 +163,73 @@ que todos os vértices em $I(S)$ são estritamente convexos.
 
 \hfill $\blacksquare$
 
+\subsection{Todos os vértices são estão contidos no poligono}
+
+Seja S o conjunto de pontos e P o involucro convexo resultante.
+Queremos provar que P contém todos os pontos de S.
+
+Caso Base:
+\begin{itemize}
+    \item $P_1$ $\in \mathcal{R}^2$ e S = \{$P_1$\} e $P = P_1$
+    \item $P_1$,$P_2$ $\in \mathcal{R}^2$ e S = \{$P_1$,$P_2$\} e $P$ = \{$P_1$,$P_2$\}
+    \item $P_1$,$P_2$,$P_3$ $\in \mathcal{R}^2$ e S = \{$P_1$,$P_2$,$P_3$\} 
+        \newline
+        \begin{itemize}
+            \item Se os pontos forem colineares $(P1,P2 -> P3)$ 
+                \newline
+                onde $P_3 = P_1 + (P_2 - P_1)t$ com t $\in \mathcal{R}$
+                \newline
+                 temos que P = \{$P_1$,$P_2$\}
+
+            \item Se os pontos não forem colineares  
+                \newline
+                 temos que P = \{$P_1$,$P_2$,$P_3$\}
+        \end{itemize}
+\end{itemize}
+
+Casos Indutivos:
+\newline
+Supondo que S = $S_1 \cup S_2$ 
+\newline
+Onde $P_1$ contém todos os pontos de $S_1$ e $P_2$ contém todos ps pontos
+de $S_2$.
+\newline
+
+Seja $P_i$ a intrecepção da tangente superior com $P_1$, e $Q_i$ a intrecepção 
+com $P_2$.
+E analogamente $P_j$ a intrecepção da tangente inferior com $P_1$
+e $Q_j$ a intrecepção com $P_2$.
+
+Depois de Se juntar $P_1$ e $P_2$ cria-se apenas um Involucro convexo,
+onde se pode dividir em 3 partes.
+
+\begin{itemize}
+    \item A) Todos os pontos de $S_1$ à esquerda de $P_jP_i$
+    \item B) Poligno formado pelos pontos \{$P_i,Q_i,P_j,Q_j$\}
+    \item C) Todos os pontos de $S_2$ à direita de $Q_jQ_i$
+\end{itemize}
+
+Queremos provar que:
+\begin{itemize}
+    \item $S_1 \subseteq A + B$
+    \item $S_2 \subseteq B + C$
+\end{itemize}
+
+Sendo que $S_1$ pode ser repartipo em $A$ + $A_1$
+\newline
+Onde $A_1$ são os pontos de $S_1$ à direita de $P_iP_j$
+\newline
+Faltando apenas provar que $A_1 \subseteq B$ 
+Por definição B contém os pontos à direita de $P_jP_i$ e à esquerda
+de $Q_jQ_i$ e como os pontos são ordenados e divididos em P1 e P2
+temos a garantia que a linha $Q_jQ_i$ está à direita de $P_jP_i$.
+E uma fez que $P_i \in$ tangente superior, temos que todos os pontos
+de $A_1$ estão abaixo dessa tangente, e analogamente todos os pontos
+estão acima da tangente inferior.
+
+
+Analogamete para $S_2 \subseteq B + C$
+
 \subsection{Proposição Tangente}
 Seja 
     I um invólucro convexo e 
@@ -180,6 +247,7 @@ isso significa que a linha $\overline{p\ p_i}$ não está no invólucro convexo.
 Que é uma contradição, ou seja, $<\forall p : p \in I : leftOn(l, p)>$
 
 %--------------------------------------------
+
 
 \section{Complexidade}
 A nossa implementação não foi exatamente igual ao algoritmo original,
