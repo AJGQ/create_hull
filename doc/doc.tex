@@ -90,7 +90,7 @@ conecta-se as duas ligações.
 Depois de mostrarmos como é o algoritmo,
 aqui vamos provar, porque é que o algoritmo faz o que diz que faz.
 Tendo I como a nossa função descrita em cima.\\
-\\
+\par
 Queremos que no fim de execução do algoritmo, o poligono
 retornado seja o invólucro convexo do conjunto dado 
 no input.\par
@@ -109,20 +109,42 @@ E a definição:
     "$v_i$ diz-se estritamente convexo se $\mathcal{A}(v_{i-1},v_i,v_{i+1}) > 0$."
 \end{center}
 
-Agora para provar que o nosso algoritmo retorna o invólucro convexo
-do conjunto dado no input, basta provar que o poligono retornado,
-com os vértices positivamente orientados, tem todos os vértices 
-estritamente convexos e contém todo o conjunto de pontos.\\
+Seja o input $S$, conjunto de pontos, e o output $P$, poligono.\\
+Caso Base ($S = \emptyset$):\par
+\hfill\begin{minipage}{\dimexpr\textwidth-1cm}
+    Trivial\\
+\end{minipage}
+Caso Base ($\#S = 1$):\par
+\hfill\begin{minipage}{\dimexpr\textwidth-1cm}
+    Seja $v_0 \in S$, então pela definição de $I$, $v_0 \in P$\\
+\end{minipage}
+Caso Indutivo:\par
+\hfill\begin{minipage}{\dimexpr\textwidth-1cm}
+    Seja $S = S_1 \cup S_2$ tal que todos os pontos de $S_1$
+    sejam menores que os pontos de $S_2$ (lexicograficamente); 
+    $P_1 = I(S_1)$ e $P_2 = I(S_2)$ em que $P_1$ e $P_2$ são 
+    invólucros convexos por indução.\\\\
+    
+    Suponhamos que os pontos de $S$ são colineares.\\
+    Pelas definições de \textit{find\_lower\_lim} e 
+    \textit{find\_higher\_lim} vão encontrar as linhas 
+    $\overline{p q}$ e $\overline{q p}$, respetivamente,
+    tal que p é o ponto menor de S, e q o ponto maior de S. 
+    Logo $P = \overline{p q}$, o invólucro convexo de S.\\\\
 
-[Provar para os casos base 0, 1 e 2]
+    Suponhamos que os pontos de $S$ não são colineares.\\
+    Agora para provar que $P$ é o invólucro convexo
+    do conjunto $S$, basta provar que $P$, com os vértices 
+    positivamente orientados, \textbf{todos os vértices 
+    são estritamente convexos} e \textbf{todos os vértices 
+    estão no poligono}.\\
+    
+    
+    
+\end{minipage}
 
 \subsection{Todos os vértices são estritamente convexos}
 
-Seja S o conjunto de pontos dado no input.\\
-
-caso indutivo:\\
-Seja $S = S_1 \cup S_2$ tal que todos os pontos de $S_1$
-sejam menores que os pontos de $S_2$ (lexicograficamente).\\
 Hipoteses Indutivas:
 \begin{enumerate}
     \item $< \forall p_i : p_i \in I(S_1) : \mathcal{A}(p_{i-1}, p_i, p_{i+1}) > 0 >$
@@ -134,7 +156,9 @@ do maior vértice de $I(S_1)$ ao menor vértice de $I(S_2)$ (lexicograficamente)
 A partir do vértice atual de $I(S_1)$ segue-se para o anterior, o mais 
 longe possível, até que o vértice anterior esteja estritamente à
 esquerda da linha, de seguida fazemos o dual para o vértice de $I(S_2)$.
-Repetindo este processo até não se conseguir mais.\par
+Repetindo este processo até não se conseguir mais.
+\par
+
 Quando não conseguirmos mais, significa que encontramos 2 vértices 
 $p_i$ e $q_i$, tais que:\\
 \\
@@ -143,6 +167,7 @@ $\equiv$ \{ definição de left \}\\
 $\mathcal{A}(p_i, q_i, p_{i-1}) > 0 \wedge \mathcal{A}(p_i, q_i, q_{i+1}) > 0$\\
 $\equiv$ \{ regra dada na aula \}\\
 $\mathcal{A}(p_{i-1}, p_i, q_i) > 0 \wedge \mathcal{A}(p_i, q_i, q_{i+1}) > 0$\\
+(TODO por esta explicação em cima)\\
 
 A função \textit{find\_higher\_lim} é análoga à \textit{find\_lower\_lim},
 por isso arranjamos 2 vértices $p_i$ e $q_i$, tais que:\\
@@ -161,29 +186,28 @@ que todos os vértices em $I(S)$ são estritamente convexos.
 
 
 
-\hfill $\blacksquare$
 
-\subsection{Todos os vértices são estão contidos no poligono}
+\subsection{Todos os vértices estão no poligono}
 
-Seja S o conjunto de pontos e P o involucro convexo resultante.
+Seja S o conjunto de pontos e P o invólucro convexo resultante.
 Queremos provar que P contém todos os pontos de S.
 
 Caso Base:
 \begin{itemize}
-    \item $P_1$ $\in \mathcal{R}^2$ e S = \{$P_1$\} e $P = P_1$
-    \item $P_1$,$P_2$ $\in \mathcal{R}^2$ e S = \{$P_1$,$P_2$\} e $P$ = \{$P_1$,$P_2$\}
+    \item $P_1$ $\in \mathcal{R}^2$ e S = \{$P_1$\} e $P = P_1$ (TODO P é um conjunto)
+    \item $P_1$,$P_2$ $\in \mathcal{R}^2$ e S = \{$P_1$,$P_2$\} e $P$ = \{$P_1$,$P_2$\} (TODO P é todos os pontos dentro do poligono)
     \item $P_1$,$P_2$,$P_3$ $\in \mathcal{R}^2$ e S = \{$P_1$,$P_2$,$P_3$\} 
         \newline
         \begin{itemize}
             \item Se os pontos forem colineares $(P1,P2 -> P3)$ 
                 \newline
-                onde $P_3 = P_1 + (P_2 - P_1)t$ com t $\in \mathcal{R}$
+                onde $P_3 = P_1 + t(P_2 - P_1)$ para algum t $\in \mathcal{R}$
                 \newline
-                 temos que P = \{$P_1$,$P_2$\}
+                 temos que P = \{$P_1$,$P_2$\}(TODO P é todos os pontos dentro do poligono)
 
             \item Se os pontos não forem colineares  
                 \newline
-                 temos que P = \{$P_1$,$P_2$,$P_3$\}
+                 temos que P = \{$P_1$,$P_2$,$P_3$\}(TODO P é todos os pontos dentro do poligono)
         \end{itemize}
 \end{itemize}
 
@@ -191,17 +215,17 @@ Casos Indutivos:
 \newline
 Supondo que S = $S_1 \cup S_2$ 
 \newline
-Onde $P_1$ contém todos os pontos de $S_1$ e $P_2$ contém todos ps pontos
+Onde $P_1$ contém todos os pontos de $S_1$ e $P_2$ contém todos os pontos
 de $S_2$.
 \newline
 
-Seja $P_i$ a intrecepção da tangente superior com $P_1$, e $Q_i$ a intrecepção 
-com $P_2$.
-E analogamente $P_j$ a intrecepção da tangente inferior com $P_1$
-e $Q_j$ a intrecepção com $P_2$.
+Seja $P_i$ a interseção da tangente superior com $P_1$, e $Q_i$ a interseção 
+com $P_2$.(TODO o ponto mínimo)
+E analogamente $P_j$ a interseção da tangente inferior com $P_1$
+e $Q_j$ a interseção com $P_2$. (TODO o ponto máximo)
 
-Depois de Se juntar $P_1$ e $P_2$ cria-se apenas um Involucro convexo,
-onde se pode dividir em 3 partes.
+Depois de se juntar $P_1$ e $P_2$ cria-se apenas um invólucro convexo,
+onde se pode dividir em 3 partes.(TODO é mesmo preciso dividir em 3?)
 
 \begin{itemize}
     \item A) Todos os pontos de $S_1$ à esquerda de $P_jP_i$
@@ -229,6 +253,7 @@ estão acima da tangente inferior.
 
 
 Analogamete para $S_2 \subseteq B + C$
+\hfill $\blacksquare$
 
 \subsection{Proposição Tangente}
 Seja 
