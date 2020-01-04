@@ -1,5 +1,6 @@
 \documentclass[11pt]{article}
 \usepackage{amssymb}
+\usepackage{amsmath}
 %\usepackage[all]{xy}
 
 \title{Algoritmo para gerar invólucros convexos}
@@ -16,10 +17,13 @@ estatística, etc.
 
 Existem várias formas de construir um, mas neste trabalho vamos
 nos cingir a implementar o "\textit{merge-hull}"
-Que é um algoritmo que se usa, umas das tecnicas mais importantes
+que é um algoritmo que se usa, umas das técnicas mais importantes
 na computação, que se chama "Dividir para conquistar".
-Que se baseia em dividir um problema complexo, em problemas mais 
+Baseia-se em dividir um problema complexo, em problemas mais 
 pequenos e mais faceis.
+
+\subsection{Notações utilizadas}
+$<\forall x : p(x) : q(x)>$ é equivalente a $\forall_{p(x)} . q(x)$
 
 %--------------------------------------------
 %\clearpage
@@ -271,6 +275,7 @@ e que existe um $p \in I$ tal que $right(l, p)$
 isso significa que a linha $\overline{p\ p_i}$ não está no invólucro convexo.
 Que é uma contradição, ou seja, $<\forall p : p \in I : leftOn(l, p)>$
 
+\hfill $\blacksquare$
 %--------------------------------------------
 
 
@@ -288,8 +293,44 @@ em relação ao algoritmo original.
     \item No final juntar $\mathcal{A}$ e $\mathcal{B}$, calculando o invólucro convexo de A $\cup$ B.
 \end{itemize}
 
+\subsection{Ordenar}
+$$\Theta(n\log{}n)$$
+
+\subsection{Separar}
+$$\mathcal{O}(1)$$
+
+\subsection{Encontrar}
+$$\mathcal{O}(n)$$
+
+\subsection{Juntar}
+$$\mathcal{O}(1)$$
+
+\subsection{Calcular invólucro}
+$$
+    \mathcal{T}(n) = 
+        \begin{cases}
+            \mathcal{O}(1)                      & n = 0\\
+            \mathcal{O}(1)                      & n = 1\\
+            \mathcal{O}(n) + 2*\mathcal{T}(n/2) & n > 1
+        \end{cases}
+$$
+
+$$
+    \mathcal{T}(n) = \sum_{i=0}^{\lfloor\log_{2}n\rfloor} 2^i*\mathcal{O}(n/2^i)
+    = \sum_{i=0}^{\lfloor\log_{2}n\rfloor} \mathcal{O}(n)
+    = (\lfloor\log_{2}n\rfloor + 1)*\mathcal{O}(n)
+    = \mathcal{O}(n\log{n})
+$$
+
 %--------------------------------------------
 
 \section{Conclusão}
+\begin{itemize}
+    \item O documento estava errado da complexidade.
+    \item A parte de encontrar os limites pode ser mais eficiente, 
+        mas a complexidade não mudaria, porque temos de ordenar.
+    \item ...
+\end{itemize}
+
 
 \end{document}
