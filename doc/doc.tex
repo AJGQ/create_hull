@@ -319,18 +319,19 @@ Pela complexidade já conhecida do \textit{merge sort},
 temos que a complexidade de Ordenar pontos é:
 $$\Theta(n\log{}n)$$
 
-\subsection{Separar}
+\subsection{Separar conjuntos de pontos}
 Para isso basta encontrar o meio do array,
-e como temos o tamanho do array é simples, e faz-se apenas com uma operação,
-o que torna a complexidade desta operação constante. 
+e como temos o tamanho do array é simples, faz-se apenas com uma operação,
+divisão por 2, o que torna a complexidade desta operação:
 $$\mathcal{O}(1)$$
 
-\subsection{Encontrar}
-Para encontrar a tangente inferior(superior) ,
-no pior caso é quando apenas no último caso é encontrado
-a tangente que seja simultaneamente tangente inferior(superior)
-de 1 e 2, para isso tem que percorrer todos os pontos,
-o que torna a sua complexidade linear. 
+\subsection{Encontrar tanjentes}
+Para encontrar a tangente inferior(superior),
+o pior caso é quando encontra os pontos limite
+(o ponto mais à esquerda e mais à direita do conjunto de pontos) 
+simultaneamente na tangente inferior(superior), 
+para isso tem que percorrer todos os pontos,
+o que torna a sua complexidade: 
 $$\mathcal{O}(n)$$
 
 \subsection{Juntar os invólucros convexos}
