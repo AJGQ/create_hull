@@ -24,7 +24,12 @@ Baseia-se em dividir um problema complexo, em problemas mais
 pequenos e mais faceis.
 
 \subsection{Notações utilizadas}
-$<\forall x : p(x) : q(x)>$ é equivalente a $\forall_{p(x)} . q(x)$
+$<\forall x : p(x) : q(x)>$ é equivalente a $\forall_{p(x)} . q(x)$\\
+Quando fazemos\\
+$\mathcal{R}\{$Descrição$\}$\\
+significa que a "Descrição" é a razão pela qual a relação $\mathcal{R}$
+é verdade.
+
 
 %--------------------------------------------
 %\clearpage
@@ -43,7 +48,7 @@ a baixo.
             onde A contém os pontos da esquerda e B os da direita.
         \item Calcular o invólucro convexo de A, 
             $\mathcal{A}$ = I(A) e o de B, $\mathcal{B}$ = I(B) recursivamente
-        \item Encontrar os pontos de junção.
+        \item Encontrar os pontos de junção (tangentes).
         \item Juntar $\mathcal{A}$ e $\mathcal{B}$, 
             calculando o invólucro convexo de A $\cup$ B.
     \end{itemize}
@@ -59,11 +64,11 @@ além de ter uma das melhores complexidades $\Theta(n\log{}n)$, achamos
 que se enquadra perfeitamente no espirito do algoritmo, "Dividir para conquistar".
 
 \subsubsection{Descrição de MergeSort}
-Input: array, indice esquerdo, indice direito\\
+Input: array, índice esquerdo, índice direito\\
 
-Começando com o indice esquerdo a 0, e o indice direito a (\textit{tamanho do array}) - 1
+Começando com o índice esquerdo a 0, e o índice direito a (\textit{tamanho do array}) - 1
 \begin{itemize}
-    \item Primeiro encontra-se o indice médio do Array e divide-se em dois. 
+    \item Primeiro encontra-se o índice médio do Array e divide-se em dois. 
         ( meio = (esquerda + direita)/2 )
     \item Calcular o MergeSort(array, esquerda, meio) (a lista que fica à esquerda)
     \item Calcular o MergeSort(array, meio+1, direita) (a lista que fica à direita)
@@ -72,18 +77,32 @@ Começando com o indice esquerdo a 0, e o indice direito a (\textit{tamanho do a
 
 \subsection{ Remover os Pontos Repetidos }
 Já que neste contexto sabemos que o array está ordenado,
-podemos fazer este algoritmo com 2 indices, um para percorrer
+podemos fazer este algoritmo com 2 índices, um para percorrer
 o array, o outro para percorrer o novo array onde todos os 
-elementos são diferentes. Se o valor dos dois indices for
-diferente então incrementa-se o segundo indice e atribui-se
-o valor do primeiro indice no valor do segundo indice. Se o 
-valor dos dois indices for igual, apenas incrementa-se o
-primeiro indice.
+elementos são diferentes. Se o valor do array nos dois índices for
+diferente então incrementa-se o segundo índice e atribui-se
+o valor do primeiro índice no valor do segundo índice. Se o 
+valor dos dois índices for igual, apenas incrementa-se o
+primeiro índice.
 
 \subsection{ Separar os Pontos em dois conjuntos }
 No trabalho decidimos usar um array, para que a sua divisão a meio 
 tivesse uma complexidade constante é tão simples como encontrar o 
 índice a meio do array.
+
+\subsection{ Encontrar as tangentes } \label{tangentes}
+Na função que trata de encontrar os pontos que 
+descrevem a tangente superior, começa-se com a linha
+do maior vértice de $I(S_1)$ ao menor vértice de $I(S_2)$ (lexicograficamente).
+A partir do vértice atual de $I(S_1)$ segue-se para o anterior, o mais 
+longe possível, até que o vértice antecessor esteja estritamente à
+esquerda da linha, de seguida fazemos o dual para o vértice de $I(S_2)$.
+Repetindo este processo até não se conseguir mais ou encontrarmos
+um dos pontos extremos (o ponto mais pequeno ou o ponto maior,
+lexicograficamente).\\
+
+Para encontrar a tangente inferior é o dual de encontrar
+a superior.
 
 \subsection{ Juntar os invólucros convexos } 
 Liberta-se a memória dos vértices entre as duas ligações e de seguida 
@@ -176,12 +195,8 @@ Hipoteses Indutivas:
     \item $< \forall p_i : p_i \in I(S_2) : \mathcal{A}(p_{i-1}, p_i, p_{i+1}) > 0 >$
 \end{enumerate}
 
-Na função \textit{find\_lower\_lim} começa-se com a linha,
-do maior vértice de $I(S_1)$ ao menor vértice de $I(S_2)$ (lexicograficamente).
-A partir do vértice atual de $I(S_1)$ segue-se para o anterior, o mais 
-longe possível, até que o vértice anterior esteja estritamente à
-esquerda da linha, de seguida fazemos o dual para o vértice de $I(S_2)$.
-Repetindo este processo até não se conseguir mais.
+
+Pela descrição da "\ref{tangentes} Encontrar as tangentes"
 \par
 
 Quando não conseguirmos mais, significa que encontramos 2 vértices 
@@ -318,6 +333,14 @@ em relação ao algoritmo original.
 Pela complexidade já conhecida do \textit{merge sort}, 
 temos que a complexidade de Ordenar pontos é:
 $$\Theta(n\log{}n)$$
+
+\subsection{Remover pontos repetidos}
+Como os pontos são recebidos ordenados lexicograficamente,
+significa que podemos eliminar os pontos iguais com apenas
+uma simples passagem pelo array, tendo em conta apenas o 
+índice do novo array e o indice do array antigo, logo a 
+complexidade é:
+$$\mathcal{O}(n)$$
 
 \subsection{Separar conjuntos de pontos}
 Para isso basta encontrar o meio do array,
