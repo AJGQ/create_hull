@@ -1,6 +1,7 @@
 \documentclass[11pt]{article}
 \usepackage{amssymb}
 \usepackage{amsmath}
+\usepackage[portuguese]{babel}
 %\usepackage[all]{xy}
 
 \title{Algoritmo para gerar invólucros convexos}
@@ -11,7 +12,7 @@
 \section{Introdução}
 Neste trabalho abordamos um dos principais temas de Geometria 
 Computacional, Invólucros Convexos.
-Estes são muito usados porque têm aplicações em bastantes àreas
+Estes são muito usados porque têm aplicações em bastantes áreas
 como reconhecimento de padrões, processamento de imagem, 
 estatística, etc.
 
@@ -42,7 +43,7 @@ a baixo.
             onde A contém os pontos da esquerda e B os da direita.
         \item Calcular o invólucro convexo de A, 
             $\mathcal{A}$ = I(A) e o de B, $\mathcal{B}$ = I(B) recursivamente
-        \item Encontrar o pontos de junção.
+        \item Encontrar os pontos de junção.
         \item Juntar $\mathcal{A}$ e $\mathcal{B}$, 
             calculando o invólucro convexo de A $\cup$ B.
     \end{itemize}
@@ -94,10 +95,10 @@ conecta-se as duas ligações.
 Depois de mostrarmos como é o algoritmo,
 aqui vamos provar, porque é que o algoritmo faz o que diz que faz.
 Tendo I como a nossa função descrita em cima.\\
-\par
+\\
 Queremos que no fim de execução do algoritmo, o poligono
 retornado seja o invólucro convexo do conjunto dado 
-no input.\par
+no input.\\
 Para isso vamos usar um Corolário dado nas aulas, descrito como:
 
 \begin{center}
@@ -106,7 +107,6 @@ Para isso vamos usar um Corolário dado nas aulas, descrito como:
     vértice é estritamente convexo e $S \subseteq P$. Então $P$ é
     o invólucro convexo de S."
 \end{center}
-
 E a definição:
 
 \begin{center}
@@ -129,23 +129,44 @@ Caso Indutivo:\par
     $P_1 = I(S_1)$ e $P_2 = I(S_2)$ em que $P_1$ e $P_2$ são 
     invólucros convexos por indução.\\\\
     
-    Suponhamos que os pontos de $S$ são colineares.\\
+    \underline{Suponhamos que os pontos de $S$ são colineares.}\\
     Pelas definições de \textit{find\_lower\_lim} e 
     \textit{find\_higher\_lim} vão encontrar as linhas 
     $\overline{p q}$ e $\overline{q p}$, respetivamente,
     tal que p é o ponto menor de S, e q o ponto maior de S. 
     Logo $P = \overline{p q}$, o invólucro convexo de S.\\\\
 
-    Suponhamos que os pontos de $S$ não são colineares.\\
+    \underline{Suponhamos que os pontos de $S$ não são colineares.}\\
     Agora para provar que $P$ é o invólucro convexo
     do conjunto $S$, basta provar que $P$, com os vértices 
-    positivamente orientados, \textbf{todos os vértices 
-    são estritamente convexos} e \textbf{todos os vértices 
-    estão no poligono}.\\
+    positivamente orientados $v_0,...,v_{n-1}$, $\mathbf{v_0,...,v_{n-1} \in S}$, 
+    \textbf{todos os vértices são estritamente convexos} e 
+    \textbf{todos os vértices estão no poligono}.\\
     
     
     
 \end{minipage}
+
+\subsection{$\mathbf{v_0,...,v_{n-1} \in S}$}
+
+Hipoteses Indutivas:
+\begin{enumerate}
+    \item $pontos(P_1) \subseteq S_1$
+    \item $pontos(P_2) \subseteq S_2$
+\end{enumerate}
+Como ao juntar os dois invólucros convexos $P_1$ e $P_2$
+nunca acrescentamos pontos a $P$, além de pontos de $P_1$ e $P_2$, 
+significa que os pontos de $P$ estão contidos na 
+união dos pontos de $P_1$ e pontos de $P_2$.
+Logo temos que $pontos(P) \subseteq pontos(P_1) \cup pontos(P_2)$.\\ \\
+$pontos(P) \\
+\subseteq \{$Provado acima$\}\\
+pontos(P_1) \cup pontos(P_2) \\
+\subseteq \{$Hipoteses de indução$\} \\
+S_1 \cup S_2 \\
+= \{$Definição de S$\}\\
+S$
+
 
 \subsection{Todos os vértices são estritamente convexos}
 
@@ -293,7 +314,9 @@ em relação ao algoritmo original.
     \item No final juntar $\mathcal{A}$ e $\mathcal{B}$, calculando o invólucro convexo de A $\cup$ B.
 \end{itemize}
 
-\subsection{Ordenar}
+\subsection{Ordenar pontos}
+Pela complexidade já conhecida do \textit{merge sort}, 
+temos que a complexidade de Ordenar pontos é:
 $$\Theta(n\log{}n)$$
 
 \subsection{Separar}
@@ -302,8 +325,16 @@ $$\mathcal{O}(1)$$
 \subsection{Encontrar}
 $$\mathcal{O}(n)$$
 
-\subsection{Juntar}
+\subsection{Juntar os invólucros convexos}
+Como para os poligonos usamos uma lista duplamente ligada e
+para juntar recebemos os 4 pontos a juntar, é só preciso 
+"ligar" os pontos com 8 apontadores, ou seja, a complexidade é: 
 $$\mathcal{O}(1)$$
+(Nota: na prática libertamos a memória que estava 
+a meio das tangentes fazendo a complexidade linear
+mas poderiamos ter guardado num conjunto de poligonos 
+a libertar, tornando a complexidade constante e no final 
+teriamos de libertar, não mudando a complexidade total)
 
 \subsection{Calcular invólucro}
 $$
@@ -320,6 +351,9 @@ $$
     = \sum_{i=0}^{\lfloor\log_{2}n\rfloor} \mathcal{O}(n)
     = (\lfloor\log_{2}n\rfloor + 1)*\mathcal{O}(n)
     = \mathcal{O}(n\log{n})
+$$
+$$
+    \mathcal{O}(n\log{n})
 $$
 
 %--------------------------------------------
