@@ -16,10 +16,11 @@ handler :: Event -> Viz -> IO Viz
 handler (EventKey (MouseButton LeftButton) Up _ p) (Viz ps) = return $ Viz (p:ps)
 handler (EventKey (Char 's') Up _ _) (Viz ps) = 
     writeFile out_file (show_points ps) 
-    >>= ( const $ callCommand ("../src/hull < " ++ out_file ++ " > ../animate/" ++ out_file))
-    >>= (const $ forkProcess ( callCommand ("../animate/animate < ../animate/" ++ out_file)))
+    >>= ( const $ callCommand ("../src/hull c < " ++ out_file ++ " > ../animate/" ++ in_file))
+    >>= ( const $ forkProcess ( callCommand ("../animate/animate < ../animate/" ++ in_file)))
     >>= ( const $ exitSuccess ) 
     >>= ( const $ return $ Viz ps)
+handler (EventKey (Char 'q') Up _ _) _ = exitSuccess
 handler e v = return v 
 
 update :: Float -> Viz -> IO Viz

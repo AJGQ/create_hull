@@ -3,32 +3,13 @@
 #include "../lib/dynamic_array/dynamic_array.h"
 #include "../lib/utils/merge_sort.h"
 #include "../lib/utils/remove_repeated.h"
+#include "../lib/utils/print.h"
 #include "../lib/point/point.h"
 #include "../lib/line/line.h"
 #include <stdlib.h>
 #include <stdio.h>
-#include <time.h>
 
-void pprint_pol(Polygon* pol){
-    if(!pol) return;
-
-    printf("(%d, %d)", (*pol->p)[X], (*pol->p)[Y]);
-    for(Polygon* aux = pol->next; aux->p!=pol->p; aux = aux->next){
-        printf("<->(%d, %d)", (*aux->p)[X], (*aux->p)[Y]);
-    }
-    printf("\n");
-}
-
-void print_pol(Polygon* pol){
-    if(!pol) return;
-
-    printf("%d %d,%d %d", (*pol->p)[X], (*pol->p)[Y], (*pol->next->p)[X], (*pol->next->p)[Y]);
-    for(Polygon* aux = pol->next; aux->p!=pol->p; aux = aux->next){
-        printf(";%d %d,%d %d", (*aux->p)[X], (*aux->p)[Y], (*aux->next->p)[X], (*aux->next->p)[Y]);
-    }
-    printf("\n");
-}
-
+bool pretty;
 
 int cmp_x(const Point* a, const Point* b){
     return ((*a)[X] < (*b)[X])? -1: ((*a)[X] > (*b)[X])? 1 : 
@@ -107,7 +88,8 @@ void create_hull_aux(Polygon** ret,
         *xl = *ret;
         *xr = *ret;
 
-        //print_pol(*ret);    
+        if(!pretty)
+            print_pol(*ret);    
         return;
     }
     size_t m = size/2 + size%2;
@@ -130,7 +112,8 @@ void create_hull_aux(Polygon** ret,
 
     *ret = *xl;
 
-    //print_pol(*ret);    
+    if(!pretty)
+        print_pol(*ret);    
 }
 
 void create_hull(Polygon** ret, DynamicArray* d){
@@ -142,31 +125,31 @@ void create_hull(Polygon** ret, DynamicArray* d){
     create_hull_aux(ret, &xl, &xr, (Point**)d->items, d->total);
 }
 
-int main(){
+int main(int argc, char** argv){
+    pretty = !(argc==2 && argv[1][0]=='c');
     DynamicArray d;
     dynamic_array_create(&d);
     Point p;
-    time_t clock_ini, clock_fin;
     size_t points = 0;
 
     while(scanf("%d %d", p+X, p+Y) == 2){
         Point* p_;
         p_ = (Point*)malloc(sizeof(Point));
         point_copy(p_, p);
-        //printf("%d %d\n", (*p_)[X], (*p_)[Y]);
+        if(!pretty)
+            printf("%d %d\n", (*p_)[X], (*p_)[Y]);
         dynamic_array_push(&d, (void*)p_);
         points++;
     }
-    //printf("$\n");
+    if(!pretty)
+        printf("$\n");
     Polygon* pol;
 
-    clock_ini = clock();
     create_hull(&pol, &d);
-    clock_fin = clock();
-    printf("%ld\t%lf\n", points, (double)(clock_fin - clock_ini)/CLOCKS_PER_SEC);
+    if(pretty)
+        pprint_pol(pol);
 
     dynamic_array_destroy(&d);
     polygon_destroy(pol);
-    
     return 0;
 }

@@ -28,7 +28,7 @@ read_actions =
             split ','
         ) . 
         split ';'
-        ) . 
+    ) . 
     lines
     where list2pair [x,y] = (x,y)
 

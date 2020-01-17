@@ -5,6 +5,9 @@ import Graphics.Gloss
 out_file :: FilePath
 out_file = "points.out"
 
+in_file :: FilePath
+in_file = "points.in"
+
 scrWidth :: Num a => a
 scrWidth = 900
 
