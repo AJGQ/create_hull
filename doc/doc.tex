@@ -17,11 +17,10 @@ como reconhecimento de padrões, processamento de imagem,
 estatística, etc.
 
 Existem várias formas de construir um, mas neste trabalho vamos
-nos cingir a implementar o "\textit{merge-hull}"
-que é um algoritmo que se usa, umas das técnicas mais importantes
-na computação, que se chama "Dividir para conquistar".
-Baseia-se em dividir um problema complexo, em problemas mais 
-pequenos e mais faceis.
+nos cingir a implementar um algoritmo que se usa, uma das 
+técnicas mais importantes na computação, chama-se 
+"Dividir para conquistar". Baseia-se em dividir um problema 
+complexo, em problemas mais pequenos e mais faceis.
 
 \subsection{Notações utilizadas}
 $<\forall x : p(x) : q(x)>$ é equivalente a $\forall_{p(x)} . q(x)$\\ \\
@@ -32,7 +31,10 @@ significa que a "Descrição" é a razão pela qual a relação $\mathcal{R}$
 left(l, p) : "o ponto p está à esquerda da linha l"\\
 leftOn(l, p) : "o ponto p está à esquerda ou na linha l"\\
 right(l, p) : "o ponto p está à direita da linha l"\\
-rightOn(l, p) : "o ponto p está à direita ou na linha l"\\
+rightOn(l, p) : "o ponto p está à direita ou na linha l"\\ \\
+I: função que dado um conjunto de pontos calcula o invólucro convexo.\\ 
+vertices: função que dado um poligono de n vértices $v_0,...,v_{n-1}$ devolve
+$\{v_i\ |\ i \in \{0,...,n-1\}\}$.\\ 
 
 
 %--------------------------------------------
@@ -68,14 +70,15 @@ além de ter uma das melhores complexidades $\Theta(n\log{}n)$, achamos
 que se enquadra perfeitamente no espirito do algoritmo, "Dividir para conquistar".
 
 \subsubsection{Descrição de MergeSort}
-Input: array, índice esquerdo, índice direito\\
+Input: array, índice esquerdo (ie), índice direito (id)\\
 
 Começando com o índice esquerdo a 0, e o índice direito a (\textit{tamanho do array}) - 1
 \begin{itemize}
+    \item Se houver apenas um elemento ou nenhum, devolve-se o array como é.
     \item Primeiro encontra-se o índice médio do Array e divide-se em dois. 
-        ( meio = (esquerda + direita)/2 )
-    \item Calcular o MergeSort(array, esquerda, meio) (a lista que fica à esquerda)
-    \item Calcular o MergeSort(array, meio+1, direita) (a lista que fica à direita)
+        ( meio = (ie + id)/2 )
+    \item Calcular o MergeSort(array, ie, meio) (a lista que fica à esquerda)
+    \item Calcular o MergeSort(array, meio+1, id) (a lista que fica à direita)
     \item No final junta os dois de forma ordenada.
 \end{itemize}
 
@@ -84,9 +87,9 @@ Já que neste contexto sabemos que o array está ordenado,
 podemos fazer este algoritmo com 2 índices, um para percorrer
 o array, o outro para percorrer o novo array onde todos os 
 elementos são diferentes. Se o valor do array nos dois índices for
-diferente então incrementa-se o segundo índice e atribui-se
-o valor do primeiro índice no valor do segundo índice. Se o 
-valor dos dois índices for igual, apenas incrementa-se o
+diferente então atribui-se o valor do primeiro índice no valor 
+do segundo índice, de seguida incrementa-se ambos os indices. 
+Se o valor dos dois índices for igual, apenas incrementa-se o
 primeiro índice.
 
 \subsection{ Separar os Pontos em dois conjuntos }
@@ -103,14 +106,16 @@ longe possível, até que o vértice antecessor esteja estritamente à
 esquerda da linha, de seguida fazemos o dual para o vértice de $I(S_2)$.
 Repetindo este processo até não se conseguir mais ou encontrarmos
 um dos pontos extremos (o ponto mais pequeno ou o ponto maior,
-lexicograficamente).\\
+lexicograficamente, de $S_1 \cup S_2$).\\
 
 Para encontrar a tangente inferior é o dual de encontrar
 a superior.
 
 \subsection{ Juntar os invólucros convexos } 
 Liberta-se a memória dos vértices entre as duas ligações e de seguida 
-conecta-se as duas ligações.
+conecta-se as duas ligações. Como estamos a usar listas duplamente
+ligadas, com um "malabarismo" de apontadores podemos simplesmente
+ligar 2 pontos.
 
 %--------------------------------------------
 
@@ -143,7 +148,7 @@ Caso Base ($S = \emptyset$):\par
 \end{minipage}
 Caso Base ($\#S = 1$):\par
 \hfill\begin{minipage}{\dimexpr\textwidth-1cm}
-    Seja $v_0 \in S$, então pela definição de $I$, $v_0 \in P$\\
+    Seja $v_0 \in S$, então pela definição de $I$, $P = \{v_0\}$\\
 \end{minipage}
 Caso Indutivo:\par
 \hfill\begin{minipage}{\dimexpr\textwidth-1cm}
@@ -173,17 +178,17 @@ Caso Indutivo:\par
 
 Hipoteses Indutivas:
 \begin{enumerate}
-    \item $pontos(P_1) \subseteq S_1$
-    \item $pontos(P_2) \subseteq S_2$
+    \item $vertices(P_1) \subseteq S_1$
+    \item $vertices(P_2) \subseteq S_2$
 \end{enumerate}
 Como ao juntar os dois invólucros convexos $P_1$ e $P_2$
-nunca acrescentamos pontos a $P$, além de pontos de $P_1$ e $P_2$, 
-significa que os pontos de $P$ estão contidos na 
-união dos pontos de $P_1$ e pontos de $P_2$.
-Logo temos que $pontos(P) \subseteq pontos(P_1) \cup pontos(P_2)$.\\ \\
-$pontos(P) \\
+nunca acrescentamos vértices a $P$, além dos vértices de $P_1$ e $P_2$, 
+significa que os vértices de $P$ estão contidos na 
+união dos vértices de $P_1$ e dos vértices de $P_2$.
+Logo temos que $vertices(P) \subseteq vertices(P_1) \cup vertices(P_2)$.\\ \\
+$vertices(P) \\
 \subseteq \{$Provado acima$\}\\
-pontos(P_1) \cup pontos(P_2) \\
+vertices(P_1) \cup vertices(P_2) \\
 \subseteq \{$Hipoteses de indução$\} \\
 S_1 \cup S_2 \\
 = \{$Definição de S$\}\\
@@ -194,8 +199,8 @@ S$
 
 Hipoteses Indutivas:
 \begin{enumerate}
-    \item $< \forall p_i : p_i \in I(S_1) : \mathcal{A}(p_{i-1}, p_i, p_{i+1}) > 0 >$
-    \item $< \forall p_i : p_i \in I(S_2) : \mathcal{A}(p_{i-1}, p_i, p_{i+1}) > 0 >$
+    \item $< \forall p_i : p_i \in vertices(P_1) : \mathcal{A}(p_{i-1}, p_i, p_{i+1}) > 0 >$
+    \item $< \forall p_i : p_i \in vertices(P_2) : \mathcal{A}(p_{i-1}, p_i, p_{i+1}) > 0 >$
 \end{enumerate}
 
 
@@ -211,13 +216,13 @@ $\mathcal{A}(p_i, q_i, p_{i-1}) > 0 \wedge \mathcal{A}(p_i, q_i, q_{i+1}) > 0$\\
 $\equiv$ \{ regra dada na aula \}\\
 $\mathcal{A}(p_{i-1}, p_i, q_i) > 0 \wedge \mathcal{A}(p_i, q_i, q_{i+1}) > 0$\\
 
-e arranjamos 2 vértices $p_i$ e $q_i$, tais que:\\
+e arranjamos 2 vértices $p_j$ e $q_j$, tais que:\\
 \\
-$left(\overline{q_i p_i}, p_{i+1}) \wedge left(\overline{q_i p_i}, q_{i-1})$\\
+$left(\overline{q_j p_j}, p_{j+1}) \wedge left(\overline{q_j p_j}, q_{j-1})$\\
 $\equiv$ \{ definição de left \}\\
-$\mathcal{A}(q_i, p_i, p_{i+1}) > 0 \wedge \mathcal{A}(q_i, p_i, q_{i-1}) > 0$\\
+$\mathcal{A}(q_j, p_j, p_{j+1}) > 0 \wedge \mathcal{A}(q_j, p_j, q_{j-1}) > 0$\\
 $\equiv$ \{ regra dada na aula \}\\
-$\mathcal{A}(q_i, p_i, p_{i+1}) > 0 \wedge \mathcal{A}(q_{i-1}, q_i, p_i) > 0$\\
+$\mathcal{A}(q_j, p_j, p_{j+1}) > 0 \wedge \mathcal{A}(q_{j-1}, q_j, p_j) > 0$\\
 
 Com isto temos que os vértices encontrados que foram 
 usados para juntar os dois invólucros são estritamente
@@ -270,19 +275,19 @@ Analogamete para $S_2 \subseteq B \cup C$
 
 \subsection{Proposição Tangente}
 Seja 
-    I um invólucro convexo e 
-    l uma linha que interseta num vértice de I, $p_i$,
+    P um invólucro convexo e 
+    l uma linha que interseta num vértice de P, $p_i$,
 no sentido contrário dos ponteiros do relógio.
 Seja $p_{i-1}$ o vértice anterior a $p_i$ e $p_{i+1}$ o vértice posterior a $p_i$.
 Temos que:
 $$leftOn(l, p_{i-1}) \wedge leftOn(l, p_{i+1}) \Rightarrow
-    <\forall p : p \in I : leftOn(l, p)>$$
+    <\forall p : p \in P : leftOn(l, p)>$$
 
 \subsubsection{Demonstração}
 Suponhamos que $leftOn(l, p_{i-1}) \wedge leftOn(l, p_{i+1})$ 
-e que existe um $p \in I$ tal que $right(l, p)$
+e que existe um $p \in P$ tal que $right(l, p)$
 isso significa que a linha $\overline{p\ p_i}$ não está no invólucro convexo.
-Que é uma contradição, ou seja, $<\forall p : p \in I : leftOn(l, p)>$
+Que é uma contradição, ou seja, $<\forall p : p \in P : leftOn(l, p)>$
 
 \hfill $\blacksquare$
 %--------------------------------------------
