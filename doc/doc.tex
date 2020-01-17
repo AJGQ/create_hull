@@ -24,11 +24,15 @@ Baseia-se em dividir um problema complexo, em problemas mais
 pequenos e mais faceis.
 
 \subsection{Notações utilizadas}
-$<\forall x : p(x) : q(x)>$ é equivalente a $\forall_{p(x)} . q(x)$\\
+$<\forall x : p(x) : q(x)>$ é equivalente a $\forall_{p(x)} . q(x)$\\ \\
 Quando fazemos\\
 $\mathcal{R}\{$Descrição$\}$\\
 significa que a "Descrição" é a razão pela qual a relação $\mathcal{R}$
-é verdade.
+é verdade.\\ \\
+left(l, p) : "o ponto p está à esquerda da linha l"\\
+leftOn(l, p) : "o ponto p está à esquerda ou na linha l"\\
+right(l, p) : "o ponto p está à direita da linha l"\\
+rightOn(l, p) : "o ponto p está à direita ou na linha l"\\
 
 
 %--------------------------------------------
@@ -149,8 +153,7 @@ Caso Indutivo:\par
     invólucros convexos por indução.\\\\
     
     \underline{Suponhamos que os pontos de $S$ são colineares.}\\
-    Pelas definições de \textit{find\_lower\_lim} e 
-    \textit{find\_higher\_lim} vão encontrar as linhas 
+    Pelas definições de \ref{tangentes} vão encontrar as linhas 
     $\overline{p q}$ e $\overline{q p}$, respetivamente,
     tal que p é o ponto menor de S, e q o ponto maior de S. 
     Logo $P = \overline{p q}$, o invólucro convexo de S.\\\\
@@ -207,10 +210,8 @@ $\equiv$ \{ definição de left \}\\
 $\mathcal{A}(p_i, q_i, p_{i-1}) > 0 \wedge \mathcal{A}(p_i, q_i, q_{i+1}) > 0$\\
 $\equiv$ \{ regra dada na aula \}\\
 $\mathcal{A}(p_{i-1}, p_i, q_i) > 0 \wedge \mathcal{A}(p_i, q_i, q_{i+1}) > 0$\\
-(TODO por esta explicação em cima)\\
 
-A função \textit{find\_higher\_lim} é análoga à \textit{find\_lower\_lim},
-por isso arranjamos 2 vértices $p_i$ e $q_i$, tais que:\\
+e arranjamos 2 vértices $p_i$ e $q_i$, tais que:\\
 \\
 $left(\overline{q_i p_i}, p_{i+1}) \wedge left(\overline{q_i p_i}, q_{i-1})$\\
 $\equiv$ \{ definição de left \}\\
@@ -225,74 +226,46 @@ outros vértices são estritamente convexos, significa
 que todos os vértices em $I(S)$ são estritamente convexos.
 
 
-
-
 \subsection{Todos os vértices estão no poligono}
+Hipoteses Indutivas:
+\begin{enumerate}
+    \item $S_1 \subseteq P_1$ 
+    \item $S_2 \subseteq P_2$.
+\end{enumerate}
 
-Seja S o conjunto de pontos e P o invólucro convexo resultante.
-Queremos provar que P contém todos os pontos de S.
+Seja $p_i$ o menor ponto da interseção da tangente 
+superior com $P_1$, e $q_i$ o maior ponto da interseção com $P_2$.
+Analogamente $p_j$ o menor ponto da interseção da tangente 
+inferior com $P_1$ e $q_j$ o maior ponto da interseção com $P_2$.
 
-Caso Base:
-\begin{itemize}
-    \item $P_1$ $\in \mathcal{R}^2$ e S = \{$P_1$\} e $P = P_1$ (TODO P é um conjunto)
-    \item $P_1$,$P_2$ $\in \mathcal{R}^2$ e S = \{$P_1$,$P_2$\} e $P$ = \{$P_1$,$P_2$\} (TODO P é todos os pontos dentro do poligono)
-    \item $P_1$,$P_2$,$P_3$ $\in \mathcal{R}^2$ e S = \{$P_1$,$P_2$,$P_3$\} 
-        \newline
-        \begin{itemize}
-            \item Se os pontos forem colineares $(P1,P2 -> P3)$ 
-                \newline
-                onde $P_3 = P_1 + t(P_2 - P_1)$ para algum t $\in \mathcal{R}$
-                \newline
-                 temos que P = \{$P_1$,$P_2$\}(TODO P é todos os pontos dentro do poligono)
-
-            \item Se os pontos não forem colineares  
-                \newline
-                 temos que P = \{$P_1$,$P_2$,$P_3$\}(TODO P é todos os pontos dentro do poligono)
-        \end{itemize}
-\end{itemize}
-
-Casos Indutivos:
-\newline
-Supondo que S = $S_1 \cup S_2$ 
-\newline
-Onde $P_1$ contém todos os pontos de $S_1$ e $P_2$ contém todos os pontos
-de $S_2$.
-\newline
-
-Seja $P_i$ a interseção da tangente superior com $P_1$, e $Q_i$ a interseção 
-com $P_2$.(TODO o ponto mínimo)
-E analogamente $P_j$ a interseção da tangente inferior com $P_1$
-e $Q_j$ a interseção com $P_2$. (TODO o ponto máximo)
-
-Depois de se juntar $P_1$ e $P_2$ cria-se apenas um invólucro convexo,
-onde se pode dividir em 3 partes.(TODO é mesmo preciso dividir em 3?)
+Depois de se juntar $P_1$ e $P_2$ cria-se um invólucro convexo,
+onde se pode dividir em 3 partes.
 
 \begin{itemize}
-    \item A) Todos os pontos de $S_1$ à esquerda de $P_jP_i$
-    \item B) Poligno formado pelos pontos \{$P_i,Q_i,P_j,Q_j$\}
-    \item C) Todos os pontos de $S_2$ à direita de $Q_jQ_i$
+    \item A: Todos os pontos de $S_1$ à esquerda de $p_jp_i$
+    \item B: Poligono formado pelos pontos \{$p_i,p_j,q_j,q_i$\}
+    \item C: Todos os pontos de $S_2$ à direita de $q_jq_i$
 \end{itemize}
-
-Queremos provar que:
-\begin{itemize}
-    \item $S_1 \subseteq A + B$
-    \item $S_2 \subseteq B + C$
-\end{itemize}
-
-Sendo que $S_1$ pode ser repartipo em $A$ + $A_1$
+Ou seja $P = A \cup B \cup C$.\\
+Se $S_1 \subseteq A \cup B$ e $S_2 \subseteq B \cup C$,
+então podemos concluir que $S_1 \cup S_2 = S \subseteq P$.\\
+Por isso queremos provar que:
+\begin{enumerate}
+    \item $S_1 \subseteq A \cup B$
+    \item $S_2 \subseteq B \cup C$
+\end{enumerate}
+Seja $A'$ são os pontos de $S_1$ à direita de $p_ip_j$,
+temos que $S_1 = A \cup A'$. 
 \newline
-Onde $A_1$ são os pontos de $S_1$ à direita de $P_iP_j$
-\newline
-Faltando apenas provar que $A_1 \subseteq B$ 
-Por definição B contém os pontos à direita de $P_jP_i$ e à esquerda
-de $Q_jQ_i$ e como os pontos são ordenados e divididos em P1 e P2
-temos a garantia que a linha $Q_jQ_i$ está à direita de $P_jP_i$.
-E uma fez que $P_i \in$ tangente superior, temos que todos os pontos
-de $A_1$ estão abaixo dessa tangente, e analogamente todos os pontos
-estão acima da tangente inferior.
-
-
-Analogamete para $S_2 \subseteq B + C$
+Queremos provar que $A' \subseteq B$.\\
+Por definição B contém os pontos à direita de $p_jp_i$ e à esquerda
+de $q_jq_i$ e como os pontos são ordenados e divididos em $P_1$ e $P_2$
+temos a garantia que a linha $q_jq_i$ está à direita de $p_jp_i$.
+Uma vez que $q_ip_i$ é uma tangente superior e $p_jq_j$ é uma tangente
+inferior, significa que todos os pontos de $A'$ estão à esquerda de
+ambas essas tangentes. Logo $A' \subseteq B$.
+Concluindo que $S_1 = A \cup A' \subseteq A \cup B$\\ \\
+Analogamete para $S_2 \subseteq B \cup C$
 \hfill $\blacksquare$
 
 \subsection{Proposição Tangente}
