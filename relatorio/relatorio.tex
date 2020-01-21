@@ -281,13 +281,13 @@ no sentido contrário dos ponteiros do relógio.
 Seja $p_{i-1}$ o vértice anterior a $p_i$ e $p_{i+1}$ o vértice posterior a $p_i$.
 Temos que:
 $$leftOn(l, p_{i-1}) \wedge leftOn(l, p_{i+1}) \Rightarrow
-    <\forall p : p \in P : leftOn(l, p)>$$
+    <\forall p : p \in vertices(P) : leftOn(l, p)>$$
 
 \subsubsection{Demonstração}
 Suponhamos que $leftOn(l, p_{i-1}) \wedge leftOn(l, p_{i+1})$ 
-e que existe um $p \in P$ tal que $right(l, p)$
+e que existe um $p \in vertices(P)$ tal que $right(l, p)$
 isso significa que a linha $\overline{p\ p_i}$ não está no invólucro convexo.
-Que é uma contradição, ou seja, $<\forall p : p \in P : leftOn(l, p)>$
+Que é uma contradição, ou seja, $<\forall p : p \in vertices(P) : leftOn(l, p)>$
 
 \hfill $\blacksquare$
 %--------------------------------------------
@@ -300,16 +300,9 @@ Por isso vamos avaliar a correção da nossa implementação, e quando
 achamos pertinente, vamos fazer a ressalva, mensionando as diferenças 
 em relação ao algoritmo original.
 
-\begin{itemize}
-    \item Ordenar os pontos pela cordenada x, tem Complexidade $\Theta(n\log{}n)$
-    \item Separar os pontos em dois conjuntos A e B, onde A contém os pontos da esquerda e B os da direita.
-    \item Calcular o invólucro convexo de A, $\mathcal{A}$ = I(A) e o de B, $\mathcal{B}$ = I(B) recursivamente
-    \item No final juntar $\mathcal{A}$ e $\mathcal{B}$, calculando o invólucro convexo de A $\cup$ B.
-\end{itemize}
-
 \subsection{Ordenar pontos}
 Pela complexidade já conhecida do \textit{merge sort}, 
-temos que a complexidade de Ordenar pontos é:
+temos que a complexidade de ordenar pontos é:
 $$\Theta(n\log{}n)$$
 
 \subsection{Remover pontos repetidos}

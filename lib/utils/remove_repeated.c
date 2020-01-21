@@ -15,5 +15,5 @@ size_t remove_repeated(Point** array, size_t size,
             array[++j] = array[i];
         }
     }
-    return ++j;
+    return j+1;
 }
