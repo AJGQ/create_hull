@@ -41,7 +41,7 @@ That helps you see all the steps in the computation of the convex hull.
 
 - press 'n': for next step
 - press 'p': for previous step
-- press <ESC>: to exit
+- press ESC: to exit
 
 ## example
 > ./animate < points.in
