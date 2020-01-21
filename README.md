@@ -11,7 +11,7 @@ will give:
 - ./hull      : pretty representation of convex hull (counter clockwise polygon)
 - ./hull c    : the points given in input and the representation of all steps in the computation of the convex hull
 
-##example
+## example
 > ./hull < points.in
 
 # visualize
@@ -28,7 +28,7 @@ can see steps of the program, one by one.
 - press 's': to activate animate with the chosen points
 - mouse click anywhere: to register a point
 
-##example
+## example
 > ./visualize < points.in
 
 # animate
@@ -43,6 +43,6 @@ That helps you see all the steps in the computation of the convex hull.
 - press 'p': for previous step
 - press <ESC>: to exit
 
-##example
+## example
 > ./animate < points.in
 
